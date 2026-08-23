@@ -111,14 +111,14 @@ export function AgenticShowcase({ locale }: AgenticShowcaseProps) {
         {/* Grid of Agentic Accomplishments */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
         >
           {content.items.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className={`glass-panel p-8 sm:p-10 flex flex-col justify-between group min-h-[260px] scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
+                className={`glass-panel p-6 sm:p-8 lg:p-10 flex flex-col justify-between group min-h-[200px] sm:min-h-[240px] lg:min-h-[260px] scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">

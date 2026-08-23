@@ -10,7 +10,7 @@ export async function GET() {
         'RESTful API serving structured career timeline, achievements, technical skills, and agentic workflows in English and Japanese.',
       contact: {
         name: 'Luv Raina',
-        url: 'https://github.com',
+        url: 'https://github.com/luvraina7',
       },
     },
     servers: [

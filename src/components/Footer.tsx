@@ -85,7 +85,7 @@ export function Footer({ locale, onOpenApiDocs }: FooterProps) {
             </button>
 
             <a
-              href="https://github.com"
+              href="https://github.com/luvraina7"
               target="_blank"
               rel="noreferrer"
               className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white transition-colors border border-[var(--border-subtle)]"
@@ -94,7 +94,7 @@ export function Footer({ locale, onOpenApiDocs }: FooterProps) {
               <GithubIcon className="w-4 h-4" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/luv-raina-011a5a103/"
               target="_blank"
               rel="noreferrer"
               className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white transition-colors border border-[var(--border-subtle)]"

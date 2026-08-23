@@ -74,7 +74,7 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
   }, [handleMouseMove]);
 
   return (
-    <section id="hero" className="relative pt-16 pb-24 md:pt-28 md:pb-36 overflow-hidden w-full flex flex-col items-center">
+    <section id="hero" className="relative pt-16 pb-24 md:pt-28 md:pb-36 overflow-hidden">
       {/* Parallax ambient glow layer */}
       <div ref={ambientRef} className="ambient-bg" />
       {/* Hero depth gradient mesh */}
@@ -82,10 +82,10 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
 
       <div
         ref={heroRef}
-        className="w-full max-w-5xl mx-auto px-6 sm:px-8 relative z-10 flex flex-col items-start text-left"
+        className="w-full max-w-5xl mx-auto px-6 sm:px-8 relative z-10"
       >
-        {/* Status Pill — now with inner glow */}
-        <div className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-medium mb-8 shadow-[0_0_20px_rgba(56,189,248,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] scroll-reveal ${heroVisible ? 'is-visible' : ''}`}>
+        {/* Status Pill — light mode optimized */}
+        <div className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full status-pill scroll-reveal ${heroVisible ? 'is-visible' : ''}`}>
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
           <span>{locale === 'en' ? 'Open to New Opportunities in Tokyo / Remote' : '東京 / リモートでの新たな挑戦を歓迎'}</span>
         </div>
@@ -115,7 +115,7 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
           </div>
           <div className="flex items-center gap-3 sm:ml-auto">
             <a
-              href="https://github.com"
+              href="https://github.com/luvraina7"
               target="_blank"
               rel="noreferrer"
               className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white transition-all hover:scale-105 border border-[var(--border-subtle)]"
@@ -124,7 +124,7 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
               <GithubIcon className="w-4 h-4" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/luv-raina-011a5a103/"
               target="_blank"
               rel="noreferrer"
               className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white transition-all hover:scale-105 border border-[var(--border-subtle)]"
@@ -133,7 +133,7 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
               <LinkedinIcon className="w-4 h-4" />
             </a>
             <a
-              href="mailto:contact@example.com"
+              href="mailto:luvraina7@gmail.com"
               className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white transition-all hover:scale-105 border border-[var(--border-subtle)]"
               aria-label="Email"
             >

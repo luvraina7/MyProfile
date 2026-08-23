@@ -2,7 +2,7 @@ import { ProfileData } from '@/types/career';
 
 export const careerDataEn: ProfileData = {
   name: 'Luv Raina',
-  title: 'Full Stack & Frontend Software Engineer',
+  title: 'Full Stack Engineer',
   tagline: 'Bridging high-performance modern web apps, mobile solutions, and AI-driven workflows across Japan for 6+ years.',
   bio: 'Software engineer with over 6 years of professional experience in Japan building customer-centric web and mobile applications. Experienced across the full stack—from Next.js/React frontend architecture, Core Web Vitals optimization, to Ruby on Rails/Laravel backends and AWS cloud infrastructure. Passionate about AI-driven engineering (Skills, Rules, MCP) and scalable systems.',
   yearsOfExperience: '6+ Years',
@@ -15,9 +15,9 @@ export const careerDataEn: ProfileData = {
     },
   ],
   socials: [
-    { platform: 'github', url: 'https://github.com', label: 'GitHub' },
-    { platform: 'linkedin', url: 'https://linkedin.com', label: 'LinkedIn' },
-    { platform: 'email', url: 'mailto:contact@example.com', label: 'Email' },
+    { platform: 'github', url: 'https://github.com/luvraina7', label: 'GitHub' },
+    { platform: 'linkedin', url: 'https://www.linkedin.com/in/luv-raina-011a5a103/', label: 'LinkedIn' },
+    { platform: 'email', url: 'mailto:luvraina7@gmail.com', label: 'Email' },
   ],
   metricsOverview: [
     { label: 'Experience in Japan', value: '6+ Years', description: 'Enterprise & startup product engineering' },

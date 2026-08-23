@@ -82,8 +82,8 @@ export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
             </div>
           </a>
 
-          {/* Navigation Links — Desktop */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--text-secondary)]">
+          {/* Navigation Links — Desktop only (tablets use the hamburger) */}
+          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-[var(--text-secondary)]">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeSection === item.id;
@@ -131,10 +131,10 @@ export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
               {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4" />}
             </button>
 
-            {/* Mobile Hamburger */}
+            {/* Mobile / Tablet Hamburger */}
             <button
               onClick={() => setIsMobileOpen(true)}
-              className="md:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border border-[var(--border-subtle)] transition-colors"
+              className="lg:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border border-[var(--border-subtle)] transition-colors"
               aria-label="Open navigation menu"
             >
               <Menu className="w-4 h-4" />

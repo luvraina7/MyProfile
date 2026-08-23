@@ -15,9 +15,9 @@ export const careerDataJa: ProfileData = {
     },
   ],
   socials: [
-    { platform: 'github', url: 'https://github.com', label: 'GitHub' },
-    { platform: 'linkedin', url: 'https://linkedin.com', label: 'LinkedIn' },
-    { platform: 'email', url: 'mailto:contact@example.com', label: 'メール' },
+    { platform: 'github', url: 'https://github.com/luvraina7', label: 'GitHub' },
+    { platform: 'linkedin', url: 'https://www.linkedin.com/in/luv-raina-011a5a103/', label: 'LinkedIn' },
+    { platform: 'email', url: 'mailto:luvraina7@gmail.com', label: 'メール' },
   ],
   metricsOverview: [
     { label: '日本での開発実務経験', value: '6年以上', description: '自社開発・エンタープライズWeb/アプリ開発' },

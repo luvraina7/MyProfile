@@ -36,15 +36,15 @@ export function SkillsSection({ skills, locale }: SkillsSectionProps) {
           </p>
         </div>
 
-        {/* Skill Groups Grid */}
+        {/* Skill Groups Grid — 1 col phone, 2 col tablet, 3 col desktop */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8"
         >
           {skills.map((group, idx) => (
             <div
               key={idx}
-              className={`glass-panel p-7 sm:p-8 flex flex-col justify-between scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
+              className={`glass-panel p-6 sm:p-7 lg:p-8 flex flex-col justify-between scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
             >
               <div>
                 <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-300 mb-6 pb-3 border-b border-[var(--border-subtle)]">

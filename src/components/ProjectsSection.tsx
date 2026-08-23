@@ -131,14 +131,14 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
         {/* Projects Grid */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
         >
           {content.projects.map((project, idx) => {
             const Icon = project.icon;
             return (
               <div
                 key={idx}
-                className={`glass-panel project-card p-8 sm:p-10 flex flex-col justify-between group min-h-[280px] scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
+                className={`glass-panel project-card p-6 sm:p-8 lg:p-10 flex flex-col justify-between group min-h-[220px] sm:min-h-[260px] lg:min-h-[280px] scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">

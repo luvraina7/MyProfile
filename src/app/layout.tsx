@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Luv Raina | Full Stack & Frontend Software Engineer (Tokyo, Japan)',
+  title: 'Luv Raina | Full Stack Engineer (Tokyo, Japan)',
   description:
     'Career timeline and portfolio of Luv Raina — 6+ years in Japan specializing in Next.js, TypeScript, React Native, Ruby on Rails, AWS, Core Web Vitals, and Agentic AI workflows.',
   keywords: [

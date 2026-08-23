@@ -20,7 +20,7 @@ export default function HomePage() {
   const allTechStacks = getAllTechStacks();
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center selection:bg-cyan-500 selection:text-black">
+    <div className="relative min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
       {/* Dramatic Grid Pattern Layer */}
       <div className="grid-pattern" aria-hidden="true" />
 
@@ -33,8 +33,8 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Main Content Sections — centered column */}
-      <main className="flex-1 relative z-10 w-full flex flex-col items-center">
+      {/* Main Content Sections — block flow; each section centers itself via internal max-w-5xl */}
+      <main className="flex-1 relative z-10">
         {/* 1. Hero with Key Metrics */}
         <Hero
           data={data}
