@@ -1,0 +1,102 @@
+'use client';
+
+import React from 'react';
+import { Locale } from '@/types/career';
+import { X, Briefcase, Code2, Cpu, FolderOpen, Terminal } from 'lucide-react';
+
+interface MobileNavProps {
+  isOpen: boolean;
+  onClose: () => void;
+  locale: Locale;
+  activeSection: string;
+  onOpenApiDocs: () => void;
+}
+
+export function MobileNav({ isOpen, onClose, locale, activeSection, onOpenApiDocs }: MobileNavProps) {
+  const links = [
+    { id: 'hero', icon: Briefcase, label: locale === 'en' ? 'Home' : 'トップ' },
+    { id: 'timeline', icon: Briefcase, label: locale === 'en' ? 'Timeline' : '経歴タイムライン' },
+    { id: 'agentic', icon: Cpu, label: locale === 'en' ? 'AI & Agentic' : 'AI・エージェント開発' },
+    { id: 'projects', icon: FolderOpen, label: locale === 'en' ? 'Projects' : 'プロジェクト' },
+    { id: 'skills', icon: Code2, label: locale === 'en' ? 'Skills' : 'スキル' },
+  ];
+
+  const handleLinkClick = (id: string) => {
+    onClose();
+    // Small delay to let the nav close animation start
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
+  return (
+    <>
+      {/* Overlay */}
+      <div
+        className={`mobile-nav-overlay ${isOpen ? 'is-open' : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Slide-out Panel */}
+      <nav
+        className={`mobile-nav-panel ${isOpen ? 'is-open' : ''}`}
+        aria-label="Mobile navigation"
+      >
+        <div className="p-6">
+          {/* Close Button */}
+          <div className="flex items-center justify-between mb-8">
+            <span className="text-sm font-bold text-[var(--text-primary)]">
+              {locale === 'en' ? 'Navigation' : 'ナビゲーション'}
+            </span>
+            <button
+              onClick={onClose}
+              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border border-[var(--border-subtle)] transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Nav Links */}
+          <ul className="space-y-2">
+            {links.map((link) => {
+              const Icon = link.icon;
+              const isActive = activeSection === link.id;
+              return (
+                <li key={link.id}>
+                  <button
+                    onClick={() => handleLinkClick(link.id)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      isActive
+                        ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
+                        : 'text-[var(--text-secondary)] hover:bg-white/5 hover:text-[var(--text-primary)] border border-transparent'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-cyan-400' : ''}`} />
+                    {link.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* API Button */}
+          <div className="mt-8 pt-6 border-t border-[var(--border-subtle)]">
+            <button
+              onClick={() => {
+                onClose();
+                onOpenApiDocs();
+              }}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-mono font-medium rounded-xl bg-cyan-950/60 hover:bg-cyan-900/80 text-cyan-300 border border-cyan-500/30 shadow-sm shadow-cyan-500/10 transition-all"
+            >
+              <Terminal className="w-3.5 h-3.5" />
+              <span>cURL / API Playground</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+}

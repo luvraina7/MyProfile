@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Locale } from '@/types/career';
-import { X, Play, Copy, Check, Terminal, FileCode, Sparkles } from 'lucide-react';
+import { X, Play, Copy, Check, Terminal, Sparkles } from 'lucide-react';
 
 interface ApiDrawerProps {
   isOpen: boolean;
@@ -40,8 +40,10 @@ export function ApiDrawer({ isOpen, onClose, locale }: ApiDrawerProps) {
 
   useEffect(() => {
     if (isOpen && !responseJson) {
-      handleExecute('/api/v1/career?locale=' + locale);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void handleExecute('/api/v1/career?locale=' + locale);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, locale]);
 
   const copyCurl = () => {

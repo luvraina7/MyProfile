@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Locale } from '@/types/career';
+import { useInView } from '@/hooks/useInView';
 import { Cpu, Terminal, ShieldCheck, Zap, Sparkles } from 'lucide-react';
 
 interface AgenticShowcaseProps {
@@ -9,6 +10,9 @@ interface AgenticShowcaseProps {
 }
 
 export function AgenticShowcase({ locale }: AgenticShowcaseProps) {
+  const { ref: headerRef, isVisible: headerVisible } = useInView();
+  const { ref: gridRef, isVisible: gridVisible } = useInView();
+
   const content = {
     en: {
       badge: 'Agentic Engineering & AI Workflows',
@@ -88,7 +92,10 @@ export function AgenticShowcase({ locale }: AgenticShowcaseProps) {
     <section id="agentic" className="py-24 md:py-36 relative">
       <div className="max-w-5xl mx-auto px-6 sm:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div
+          ref={headerRef}
+          className={`text-center max-w-3xl mx-auto mb-16 scroll-reveal ${headerVisible ? 'is-visible' : ''}`}
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
             <Cpu className="w-4 h-4" />
             <span>{content.badge}</span>
@@ -101,18 +108,24 @@ export function AgenticShowcase({ locale }: AgenticShowcaseProps) {
           </p>
         </div>
 
-        {/* Grid of Agentic Accomplishments with Spacious Padding & 32px Gaps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+        {/* Grid of Agentic Accomplishments */}
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10"
+        >
           {content.items.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div key={idx} className="glass-panel p-8 sm:p-10 flex flex-col justify-between group min-h-[260px]">
+              <div
+                key={idx}
+                className={`glass-panel p-8 sm:p-10 flex flex-col justify-between group min-h-[260px] scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
+              >
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <div className={`p-3.5 rounded-2xl bg-white/5 border border-[var(--border-subtle)] ${item.color} group-hover:scale-110 transition-transform shadow-inner`}>
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-mono font-semibold">
+                    <span className="px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-mono-custom font-semibold">
                       {item.impact}
                     </span>
                   </div>
@@ -124,7 +137,7 @@ export function AgenticShowcase({ locale }: AgenticShowcaseProps) {
                   </p>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-[var(--border-subtle)] flex items-center gap-2 text-xs text-[var(--text-muted)] font-mono">
+                <div className="mt-8 pt-4 border-t border-[var(--border-subtle)] flex items-center gap-2 text-xs text-[var(--text-muted)] font-mono-custom">
                   <Terminal className="w-4 h-4 text-cyan-400" />
                   <span>Production Tested & Maintained</span>
                 </div>

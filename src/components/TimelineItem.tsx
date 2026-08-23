@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { CareerMilestone, Locale } from '@/types/career';
+import { useInView } from '@/hooks/useInView';
 import { Building2, Calendar, MapPin, Users, ChevronDown, ChevronUp, CheckCircle2, TrendingUp } from 'lucide-react';
 
 interface TimelineItemProps {
@@ -14,6 +15,10 @@ interface TimelineItemProps {
 
 export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }: TimelineItemProps) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const { ref, isVisible } = useInView({ threshold: 0.1 });
+  const { ref: nodeRef, isVisible: nodeVisible } = useInView({ threshold: 0.5 });
+
+  const isCurrent = item.period.end === 'Present' || item.period.end === '現在';
 
   const categoryGradients: Record<string, string> = {
     'AI & Automation': 'from-emerald-400 to-cyan-500 border-emerald-500/40 text-emerald-400',
@@ -26,104 +31,115 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
   const badgeStyle = categoryGradients[item.category] || 'from-cyan-400 to-indigo-500 text-cyan-400 border-cyan-500/40';
 
   return (
-    <article className="relative pl-12 md:pl-0 mb-20 last:mb-0 group">
-      {/* Node Marker on Spine */}
-      <div className="absolute left-[13px] md:left-1/2 -translate-x-1/2 top-8 z-10">
-        <div className="w-6 h-6 rounded-full bg-[var(--bg-primary)] border-2 border-cyan-400 shadow-lg shadow-cyan-400/50 flex items-center justify-center group-hover:scale-125 transition-transform">
-          <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></div>
+    <article
+      ref={ref}
+      className={`relative pl-14 md:pl-0 mb-24 last:mb-0 group timeline-item-enter`}
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      {/* Node Marker on Spine — Current role pulses, past roles are static */}
+      <div
+        ref={nodeRef}
+        className="absolute left-[13px] md:left-1/2 -translate-x-1/2 top-10 z-10"
+      >
+        <div className={`w-7 h-7 rounded-full bg-[var(--bg-primary)] border-2 ${isCurrent ? 'border-cyan-400 shadow-lg shadow-cyan-400/50' : 'border-indigo-400/60'} flex items-center justify-center group-hover:scale-125 transition-transform timeline-node-pop ${nodeVisible ? 'is-visible' : ''}`}>
+          {isCurrent ? (
+            <div className="timeline-node-current" />
+          ) : (
+            <div className="timeline-node-static" />
+          )}
         </div>
       </div>
 
       {/* Grid container */}
-      <div className={`md:grid md:grid-cols-2 md:gap-16 items-start ${index % 2 === 0 ? '' : 'md:grid-flow-dense'}`}>
+      <div className={`md:grid md:grid-cols-2 md:gap-20 items-start ${index % 2 === 0 ? '' : 'md:grid-flow-dense'}`}>
         {/* Date / Category pill for opposite column on desktop */}
-        <div className={`hidden md:flex flex-col justify-center pt-6 ${index % 2 === 0 ? 'text-right pr-8' : 'md:col-start-2 pl-8'}`}>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-secondary)] w-fit self-start md:self-auto shadow-sm">
-            <Calendar className="w-3.5 h-3.5 text-cyan-400" />
+        <div className={`hidden md:flex flex-col justify-center pt-8 ${index % 2 === 0 ? 'text-right pr-10' : 'md:col-start-2 pl-10'}`}>
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-[var(--border-subtle)] text-xs font-mono-custom text-[var(--text-secondary)] w-fit self-start md:self-auto shadow-sm">
+            <Calendar className="w-4 h-4 text-cyan-400" />
             <span>
               {item.period.start} ~ {item.period.end}
             </span>
           </div>
-          <span className="text-xs font-bold text-[var(--text-muted)] mt-2 tracking-wider uppercase">
+          <span className="text-xs font-bold text-[var(--text-muted)] mt-3 tracking-widest uppercase">
             {item.category}
           </span>
         </div>
 
-        {/* The Main Card with Generous Inner Padding */}
-        <div className={`glass-panel p-7 sm:p-9 relative ${index % 2 === 0 ? '' : 'md:col-start-1'}`}>
-          {/* Card Header */}
-          <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-            <div>
-              <div className="md:hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-secondary)] mb-3">
-                <Calendar className="w-3.5 h-3.5 text-cyan-400" />
+        {/* The Main Card — increased padding & breathing room */}
+        <div className={`glass-panel p-8 sm:p-10 relative ${index % 2 === 0 ? '' : 'md:col-start-1'} ${isVisible ? 'scroll-reveal is-visible' : 'scroll-reveal'}`} style={{ animationDelay: `${0.15 + index * 0.1}s` }}>
+          {/* Card Header — more spacing */}
+          <div className="flex flex-wrap items-start justify-between gap-5 mb-6">
+            <div className="space-y-1">
+              <div className="md:hidden inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-[var(--border-subtle)] text-xs font-mono-custom text-[var(--text-secondary)] mb-4">
+                <Calendar className="w-4 h-4 text-cyan-400" />
                 <span>
                   {item.period.start} ~ {item.period.end}
                 </span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-cyan-300 transition-colors leading-tight">
+              <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-cyan-300 transition-colors leading-snug tracking-tight">
                 {item.role}
               </h3>
-              <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)] mt-1.5 font-medium">
-                <Building2 className="w-4 h-4 text-indigo-400" />
+              <div className="flex items-center gap-2.5 text-[15px] text-[var(--text-secondary)] mt-2 font-medium">
+                <Building2 className="w-[18px] h-[18px] text-indigo-400 shrink-0" />
                 <span>{item.company}</span>
               </div>
             </div>
 
-            <span className={`px-3 py-1.5 rounded-xl text-xs font-semibold border bg-white/5 ${badgeStyle}`}>
+            <span className={`px-4 py-2 rounded-xl text-xs font-semibold border bg-white/5 leading-none ${badgeStyle}`}>
               {item.category}
             </span>
           </div>
 
-          {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--text-muted)] mb-6 border-b border-[var(--border-subtle)] pb-4">
-            <div className="flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-rose-400" />
-              <span>{item.location}</span>
+          {/* Meta Info — larger gap & icons */}
+          <div className="flex flex-wrap items-center gap-5 text-sm text-[var(--text-muted)] mb-7 border-b border-[var(--border-subtle)] pb-5">
+            <div className="flex items-center gap-2.5">
+              <MapPin className="w-[18px] h-[18px] text-rose-400 shrink-0" />
+              <span className="leading-none">{item.location}</span>
             </div>
             {item.teamSize && (
-              <div className="flex items-center gap-1.5">
-                <Users className="w-4 h-4 text-cyan-400" />
-                <span>{item.teamSize}</span>
+              <div className="flex items-center gap-2.5">
+                <Users className="w-[18px] h-[18px] text-cyan-400 shrink-0" />
+                <span className="leading-none">{item.teamSize}</span>
               </div>
             )}
           </div>
 
-          {/* Summary Paragraph */}
-          <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-6 font-normal">
+          {/* Summary Paragraph — looser leading */}
+          <p className="text-[15px] sm:text-base text-[var(--text-secondary)] leading-[1.8] mb-8 font-normal">
             {item.summary}
           </p>
 
-          {/* Impact Metrics */}
+          {/* Impact Metrics — more padding & gap */}
           {item.metrics && item.metrics.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-6 p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8 p-5 rounded-xl bg-cyan-950/20 border border-cyan-500/20">
               {item.metrics.map((m, mIdx) => (
-                <div key={mIdx} className="flex items-start gap-2.5">
-                  <TrendingUp className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                  <div>
-                    <div className="text-xs sm:text-sm font-bold text-cyan-200">{m.label}: {m.value}</div>
-                    {m.description && <div className="text-xs text-[var(--text-secondary)] mt-0.5 opacity-90">{m.description}</div>}
+                <div key={mIdx} className="flex items-start gap-3">
+                  <TrendingUp className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-cyan-200 leading-tight">{m.label}: {m.value}</div>
+                    {m.description && <div className="text-xs text-[var(--text-secondary)] leading-relaxed opacity-90">{m.description}</div>}
                   </div>
                 </div>
               ))}
             </div>
           )}
 
-          {/* Key Deliverables */}
+          {/* Key Deliverables — increased spacing */}
           {item.highlights.length > 0 && (
-            <div className="mb-6">
+            <div className="mb-8">
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[var(--text-accent)] hover:underline mb-3"
+                className="flex items-center gap-2.5 text-sm font-semibold text-[var(--text-accent)] hover:underline mb-4"
               >
                 <span>{locale === 'en' ? 'Key Deliverables & Responsibilities' : '主な担当業務・成果'}</span>
-                {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
               </button>
 
               {isExpanded && (
-                <ul className="space-y-3.5 mt-3">
+                <ul className="space-y-4 mt-4">
                   {item.highlights.map((h, hIdx) => (
-                    <li key={hIdx} className="flex items-start gap-3 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
+                    <li key={hIdx} className="flex items-start gap-3.5 text-sm sm:text-[15px] text-[var(--text-secondary)] leading-relaxed">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </li>
                   ))}
@@ -132,15 +148,15 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
             </div>
           )}
 
-          {/* Tech Stack Tags */}
-          <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-[var(--border-subtle)]">
+          {/* Tech Stack Tags — more breathing */}
+          <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-[var(--border-subtle)]">
             {item.techStack.map((tech) => {
               const isSelected = selectedTech?.toLowerCase() === tech.toLowerCase();
               return (
                 <button
                   key={tech}
                   onClick={() => onSelectTech(tech)}
-                  className={`badge ${isSelected ? 'badge-active' : ''}`}
+                  className={`badge px-3.5 py-2 text-[13px] ${isSelected ? 'badge-active' : ''}`}
                 >
                   {tech}
                 </button>

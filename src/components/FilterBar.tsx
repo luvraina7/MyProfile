@@ -8,7 +8,7 @@ interface FilterBarProps {
   categories: string[];
   selectedCategory: string;
   onSelectCategory: (category: string) => void;
-  allTechStacks: string[];
+  allTechStacks?: string[];
   selectedTech: string | null;
   onSelectTech: (tech: string | null) => void;
   locale: Locale;
@@ -18,7 +18,6 @@ export function FilterBar({
   categories,
   selectedCategory,
   onSelectCategory,
-  allTechStacks,
   selectedTech,
   onSelectTech,
   locale,

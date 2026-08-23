@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { CareerMilestone, Locale } from '@/types/career';
 import { FilterBar } from './FilterBar';
 import { TimelineItem } from './TimelineItem';
+import { useInView } from '@/hooks/useInView';
 import { Sparkles, Briefcase } from 'lucide-react';
 
 interface TimelineSectionProps {
@@ -15,6 +16,7 @@ interface TimelineSectionProps {
 export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const { ref: headerRef, isVisible: headerVisible } = useInView({ threshold: 0.15 });
 
   const categories = ['All', 'AI & Automation', 'Performance & DevOps', 'Frontend', 'Full-Stack', 'Mobile'];
 
@@ -31,7 +33,7 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
     <section id="timeline" className="py-20 md:py-32 relative">
       <div className="max-w-5xl mx-auto px-6 sm:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div ref={headerRef} className={`text-center max-w-3xl mx-auto mb-16 scroll-reveal ${headerVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
             <Briefcase className="w-4 h-4" />
             <span>{locale === 'en' ? 'Career Progression' : '職務経歴・実績'}</span>

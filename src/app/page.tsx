@@ -7,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { TimelineSection } from '@/components/TimelineSection';
 import { AgenticShowcase } from '@/components/AgenticShowcase';
+import { ProjectsSection } from '@/components/ProjectsSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { Footer } from '@/components/Footer';
 import { ApiDrawer } from '@/components/ApiDrawer';
@@ -19,19 +20,21 @@ export default function HomePage() {
   const allTechStacks = getAllTechStacks();
 
   return (
-    <div className="relative min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
-      {/* Background ambient lighting */}
-      <div className="ambient-bg" />
+    <div className="relative min-h-screen flex flex-col items-center selection:bg-cyan-500 selection:text-black">
+      {/* Dramatic Grid Pattern Layer */}
+      <div className="grid-pattern" aria-hidden="true" />
 
-      {/* Top Navigation */}
-      <Navbar
-        locale={locale}
-        onToggleLocale={(newLocale) => setLocale(newLocale)}
-        onOpenApiDocs={() => setIsApiOpen(true)}
-      />
+      {/* Top Navigation — full width */}
+      <div className="w-full">
+        <Navbar
+          locale={locale}
+          onToggleLocale={(newLocale) => setLocale(newLocale)}
+          onOpenApiDocs={() => setIsApiOpen(true)}
+        />
+      </div>
 
-      {/* Main Content Sections */}
-      <main className="flex-1 relative z-10">
+      {/* Main Content Sections — centered column */}
+      <main className="flex-1 relative z-10 w-full flex flex-col items-center">
         {/* 1. Hero with Key Metrics */}
         <Hero
           data={data}
@@ -49,18 +52,23 @@ export default function HomePage() {
         {/* 3. AI & Agentic Engineering Showcase */}
         <AgenticShowcase locale={locale} />
 
-        {/* 4. Skills & Competencies */}
+        {/* 4. Projects & Featured Work */}
+        <ProjectsSection locale={locale} />
+
+        {/* 5. Skills & Competencies */}
         <SkillsSection
           skills={data.skills}
           locale={locale}
         />
       </main>
 
-      {/* Footer */}
-      <Footer
-        locale={locale}
-        onOpenApiDocs={() => setIsApiOpen(true)}
-      />
+      {/* Footer — full width, inner centered */}
+      <div className="w-full">
+        <Footer
+          locale={locale}
+          onOpenApiDocs={() => setIsApiOpen(true)}
+        />
+      </div>
 
       {/* Interactive Resume-as-an-API Modal Playground */}
       <ApiDrawer
