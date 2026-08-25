@@ -11,6 +11,7 @@ import { ProjectsSection } from '@/components/ProjectsSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { Footer } from '@/components/Footer';
 import { ApiDrawer } from '@/components/ApiDrawer';
+import { BackToTop } from '@/components/BackToTop';
 
 export default function HomePage() {
   const [locale, setLocale] = useState<Locale>('en');
@@ -76,6 +77,7 @@ export default function HomePage() {
         onClose={() => setIsApiOpen(false)}
         locale={locale}
       />
+      <BackToTop locale={locale} />
     </div>
   );
 }

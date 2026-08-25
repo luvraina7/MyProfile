@@ -74,7 +74,7 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
   }, [handleMouseMove]);
 
   return (
-    <section id="hero" className="relative pt-16 pb-24 md:pt-28 md:pb-36 overflow-hidden">
+    <section id="hero" className="relative pt-10 pb-20 md:pt-20 md:pb-28 overflow-hidden">
       {/* Parallax ambient glow layer */}
       <div ref={ambientRef} className="ambient-bg" />
       {/* Hero depth gradient mesh */}
@@ -103,8 +103,69 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
           </p>
         </div>
 
+        {/* Action Buttons (moved near heading for faster access) */}
+        <div className={`flex flex-wrap items-start gap-4 mt-6 scroll-reveal ${heroVisible ? 'is-visible' : ''} stagger-3`}>
+          <a
+            href="#timeline"
+            className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold text-sm shadow-lg shadow-cyan-500/25 flex items-center gap-2.5 transition-all hover:scale-105"
+          >
+            <span>{locale === 'en' ? 'Explore Career Journey' : '経歴タイムラインを見る'}</span>
+            <ArrowDown className="w-4 h-4" />
+          </a>
+
+          {/* Resume Download Dropdown — EN / JA selector */}
+          <div ref={resumeMenuRef} className="flex flex-col">
+            <button
+              onClick={() => setResumeMenuOpen((v) => !v)}
+              aria-expanded={resumeMenuOpen}
+              aria-haspopup="menu"
+              className={`px-5 py-3.5 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-subtle-hover)] text-[var(--text-primary)] font-semibold text-sm border flex items-center gap-2.5 transition-all hover:border-emerald-500/40 ${resumeMenuOpen ? 'border-emerald-500/50 bg-[var(--surface-subtle-hover)]' : 'border-[var(--border-subtle)]'}`}
+            >
+              <Download className="w-4 h-4 text-emerald-400" />
+              <span>{locale === 'en' ? 'Download Resume' : '履歴書をダウンロード'}</span>
+              <ChevronDown className={`w-4 h-4 text-[var(--text-muted)] transition-transform duration-200 ${resumeMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* In-flow dropdown avoids covering cards/content below */}
+            {resumeMenuOpen && (
+              <div
+                role="menu"
+                className="mt-2 w-56 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-subtle)] shadow-xl shadow-black/40 overflow-hidden"
+                style={{ animation: 'reveal-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both' }}
+              >
+                {(Object.keys(RESUME_FILES) as Array<keyof typeof RESUME_FILES>).map((key) => (
+                  <a
+                    key={key}
+                    role="menuitem"
+                    href={RESUME_FILES[key].path}
+                    download
+                    onClick={() => setResumeMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3.5 hover:bg-cyan-500/10 transition-colors group border-b border-[var(--border-subtle)] last:border-b-0"
+                  >
+                    <FileText className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--text-accent)] transition-colors">
+                      {RESUME_FILES[key].label}
+                    </span>
+                    <span className="ml-auto text-[10px] font-mono-custom text-[var(--text-muted)] uppercase tracking-wider">
+                      {key === 'en' ? '.docx EN' : '.docx JA'}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={onOpenApiDocs}
+            className="px-5 py-3.5 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-subtle-hover)] text-[var(--text-primary)] font-mono-custom text-sm border border-[var(--border-subtle)] flex items-center gap-2.5 transition-all hover:border-cyan-500/40"
+          >
+            <Terminal className="w-4 h-4 text-cyan-400" />
+            <span>{locale === 'en' ? 'Test as API (cURL / JSON)' : 'APIとしてテスト (cURL / JSON)'}</span>
+          </button>
+        </div>
+
         {/* Quick Meta (Location / Experience / Socials) */}
-        <div className={`flex flex-wrap items-center gap-6 mt-8 text-sm text-[var(--text-secondary)] scroll-reveal ${heroVisible ? 'is-visible' : ''} stagger-3`}>
+        <div className={`flex flex-wrap items-center gap-6 mt-6 text-sm text-[var(--text-secondary)] scroll-reveal ${heroVisible ? 'is-visible' : ''} stagger-4`}>
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-rose-400 shrink-0" />
             <span className="font-medium">{data.location}</span>
@@ -145,7 +206,7 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
         {/* Metrics Grid with Count-Up Animation */}
         <div
           ref={metricsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-8"
         >
           {data.metricsOverview.map((metric, idx) => (
             <div
@@ -167,67 +228,6 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
               )}
             </div>
           ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className={`flex flex-wrap items-center gap-4 mt-12 scroll-reveal ${heroVisible ? 'is-visible' : ''} stagger-5`}>
-          <a
-            href="#timeline"
-            className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold text-sm shadow-lg shadow-cyan-500/25 flex items-center gap-2.5 transition-all hover:scale-105"
-          >
-            <span>{locale === 'en' ? 'Explore Career Journey' : '経歴タイムラインを見る'}</span>
-            <ArrowDown className="w-4 h-4" />
-          </a>
-
-          {/* Resume Download Dropdown — EN / JA selector */}
-          <div ref={resumeMenuRef} className="relative">
-            <button
-              onClick={() => setResumeMenuOpen((v) => !v)}
-              aria-expanded={resumeMenuOpen}
-              aria-haspopup="menu"
-              className={`px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-primary)] font-semibold text-sm border flex items-center gap-2.5 transition-all hover:border-emerald-500/40 ${resumeMenuOpen ? 'border-emerald-500/50 bg-white/10' : 'border-[var(--border-subtle)]'}`}
-            >
-              <Download className="w-4 h-4 text-emerald-400" />
-              <span>{locale === 'en' ? 'Download Resume' : '履歴書をダウンロード'}</span>
-              <ChevronDown className={`w-4 h-4 text-[var(--text-muted)] transition-transform duration-200 ${resumeMenuOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            {/* Dropdown Menu */}
-            {resumeMenuOpen && (
-              <div
-                role="menu"
-                className="absolute top-full left-0 mt-2 w-56 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-subtle)] shadow-xl shadow-black/40 overflow-hidden z-20"
-                style={{ animation: 'reveal-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both' }}
-              >
-                {(Object.keys(RESUME_FILES) as Array<keyof typeof RESUME_FILES>).map((key) => (
-                  <a
-                    key={key}
-                    role="menuitem"
-                    href={RESUME_FILES[key].path}
-                    download
-                    onClick={() => setResumeMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3.5 hover:bg-cyan-500/10 transition-colors group border-b border-[var(--border-subtle)] last:border-b-0"
-                  >
-                    <FileText className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span className="text-sm font-medium text-[var(--text-primary)] group-hover:text-cyan-300 transition-colors">
-                      {RESUME_FILES[key].label}
-                    </span>
-                    <span className="ml-auto text-[10px] font-mono-custom text-[var(--text-muted)] uppercase tracking-wider">
-                      {key === 'en' ? '.docx EN' : '.docx JA'}
-                    </span>
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <button
-            onClick={onOpenApiDocs}
-            className="px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-primary)] font-mono-custom text-sm border border-[var(--border-subtle)] flex items-center gap-2.5 transition-all hover:border-cyan-500/40"
-          >
-            <Terminal className="w-4 h-4 text-cyan-400" />
-            <span>{locale === 'en' ? 'Test as API (cURL / JSON)' : 'APIとしてテスト (cURL / JSON)'}</span>
-          </button>
         </div>
       </div>
     </section>

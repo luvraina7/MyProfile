@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Locale } from '@/types/career';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { Globe, Terminal, Moon, Sun, Briefcase, Cpu, Code2, FolderOpen, Menu } from 'lucide-react';
@@ -18,9 +18,21 @@ export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const activeSection = useScrollSpy(SECTION_IDS);
+  const hasSyncedTheme = useRef(false);
 
   useEffect(() => {
+    if (!hasSyncedTheme.current) {
+      hasSyncedTheme.current = true;
+      const current =
+        document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      if (current !== theme) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time post-hydration sync with the ThemeInit inline script
+        setTheme(current);
+        return;
+      }
+    }
     document.documentElement.setAttribute('data-theme', theme);
+    window.localStorage.setItem('theme', theme);
   }, [theme]);
 
   // Lock body scroll when mobile nav is open
@@ -63,7 +75,7 @@ export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 backdrop-blur-[20px] bg-[rgba(14,20,38,0.65)] border-b border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_rgba(0,0,0,0.35),0_1px_0_rgba(255,255,255,0.06)_inset] supports-[backdrop-filter]:bg-[rgba(14,20,38,0.55)] transition-all">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-[20px] bg-[var(--bg-header)] border-b border-[var(--border-subtle)] shadow-[0_8px_32px_rgba(0,0,0,0.22),0_1px_0_rgba(255,255,255,0.06)_inset] supports-[backdrop-filter]:bg-[var(--bg-header-fallback)] transition-all">
         {/* Subtle bottom gradient line */}
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent pointer-events-none" aria-hidden="true" />
         <div className="max-w-6xl mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
@@ -142,6 +154,7 @@ export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
           </div>
         </div>
       </header>
+      <div className="h-20" aria-hidden="true" />
 
       {/* Mobile Navigation */}
       <MobileNav
