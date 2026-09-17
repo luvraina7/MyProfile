@@ -10,12 +10,10 @@ import { AgenticShowcase } from '@/components/AgenticShowcase';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { Footer } from '@/components/Footer';
-import { ApiDrawer } from '@/components/ApiDrawer';
 import { BackToTop } from '@/components/BackToTop';
 
 export default function HomePage() {
   const [locale, setLocale] = useState<Locale>('en');
-  const [isApiOpen, setIsApiOpen] = useState<boolean>(false);
 
   const data = getCareerData(locale);
   const allTechStacks = getAllTechStacks();
@@ -30,7 +28,6 @@ export default function HomePage() {
         <Navbar
           locale={locale}
           onToggleLocale={(newLocale) => setLocale(newLocale)}
-          onOpenApiDocs={() => setIsApiOpen(true)}
         />
       </div>
 
@@ -40,7 +37,6 @@ export default function HomePage() {
         <Hero
           data={data}
           locale={locale}
-          onOpenApiDocs={() => setIsApiOpen(true)}
         />
 
         {/* 2. Interactive Career Timeline */}
@@ -65,18 +61,9 @@ export default function HomePage() {
 
       {/* Footer — full width, inner centered */}
       <div className="w-full">
-        <Footer
-          locale={locale}
-          onOpenApiDocs={() => setIsApiOpen(true)}
-        />
+        <Footer locale={locale} />
       </div>
 
-      {/* Interactive Resume-as-an-API Modal Playground */}
-      <ApiDrawer
-        isOpen={isApiOpen}
-        onClose={() => setIsApiOpen(false)}
-        locale={locale}
-      />
       <BackToTop locale={locale} />
     </div>
   );

@@ -508,17 +508,55 @@ summary:focus-visible {
   font-weight: 600;
 }
 
-/* ===== Timeline Spine — centered through cards at every breakpoint ===== */
+/* ===== Timeline Spine — centered through cards at every breakpoint =====
+   Hidden by default and drawn in only when the timeline container enters the
+   viewport (JS-gated via .is-visible), so on a mid-scroll refresh the line can
+   never paint before the cards. The 3s delay (on .is-visible only) holds the
+   line back well after the cards have appeared. The base rule keeps a
+   delay-free transition so hiding (e.g. empty filter) is immediate — CSS takes
+   the transition property from the destination state. */
 .timeline-spine {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top;
   top: 0;
   bottom: 0;
   width: 3px;
   background: var(--timeline-line);
   box-shadow: 0 0 14px rgba(56, 189, 248, 0.45), 0 0 28px rgba(129, 140, 248, 0.22);
+  opacity: 0;
+  transition:
+    opacity 0.7s ease,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-spine.is-visible {
   opacity: 0.95;
+  transform: translateX(-50%) scaleY(1);
+  transition:
+    opacity 0.7s ease 3s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the spine JS-gated (.is-visible) even with motion reduced — forcing it
+     visible here would let it paint before the cards on a mid-scroll refresh.
+     transition:none on both states just makes the reveal instant once gated in
+     (and opts out of the 3s hold, matching reduced-motion expectations). */
+  .timeline-spine,
+  .timeline-spine.is-visible {
+    transition: none;
+  }
+
+  /* Cards must be fully visible at first paint under reduced motion: without
+     this, the staggered article entrance (reveal-up both) holds them at
+     opacity 0 while the gated spine appears — line-before-cards again.
+     article prefix bumps specificity so the later .timeline-item-enter
+     rule (line ~775) can't override this back on. */
+  article.timeline-item-enter {
+    animation: none;
+  }
 }
 
 @media (min-width: 1024px) {

@@ -3,15 +3,14 @@
 import React from 'react';
 import { Locale } from '@/types/career';
 import { useInView } from '@/hooks/useInView';
-import { Terminal, Mail, Sparkles } from 'lucide-react';
+import { Mail, Sparkles } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 interface FooterProps {
   locale: Locale;
-  onOpenApiDocs: () => void;
 }
 
-export function Footer({ locale, onOpenApiDocs }: FooterProps) {
+export function Footer({ locale }: FooterProps) {
   const { ref, isVisible } = useInView({ threshold: 0.1 });
 
   const colophonItems = [
@@ -76,14 +75,6 @@ export function Footer({ locale, onOpenApiDocs }: FooterProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <button
-              onClick={onOpenApiDocs}
-              className="flex items-center gap-2 px-4 py-2 text-xs font-mono-custom rounded-xl bg-white/5 hover:bg-white/10 text-cyan-300 border border-cyan-500/30 transition-colors"
-            >
-              <Terminal className="w-3.5 h-3.5" />
-              <span>{locale === 'en' ? 'OpenAPI 3.1 Spec' : 'OpenAPI 3.1 仕様書'}</span>
-            </button>
-
             <a
               href="https://github.com/luvraina7"
               target="_blank"

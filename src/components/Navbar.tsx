@@ -3,18 +3,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Locale } from '@/types/career';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
-import { Globe, Terminal, Moon, Sun, Briefcase, Cpu, Code2, FolderOpen, Menu } from 'lucide-react';
+import { Globe, Moon, Sun, Briefcase, Cpu, Code2, FolderOpen, Menu } from 'lucide-react';
 import { MobileNav } from './MobileNav';
 
 interface NavbarProps {
   locale: Locale;
   onToggleLocale: (newLocale: Locale) => void;
-  onOpenApiDocs: () => void;
 }
 
 const SECTION_IDS = ['hero', 'timeline', 'agentic', 'projects', 'skills'];
 
-export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
+export function Navbar({ locale, onToggleLocale }: NavbarProps) {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const activeSection = useScrollSpy(SECTION_IDS);
@@ -114,16 +113,6 @@ export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
 
           {/* Controls */}
           <div className="flex items-center gap-3">
-            {/* API Playground Button */}
-            <button
-              onClick={onOpenApiDocs}
-              className="hidden sm:flex items-center gap-2 px-3.5 py-2 text-xs font-mono-custom font-medium rounded-xl bg-cyan-950/60 hover:bg-cyan-900/80 text-cyan-300 border border-cyan-500/30 shadow-sm shadow-cyan-500/10 transition-all hover:scale-105"
-              title="Open Resume as an API Playground"
-            >
-              <Terminal className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">cURL / API</span>
-            </button>
-
             {/* Bilingual Language Switcher */}
             <button
               onClick={() => onToggleLocale(locale === 'en' ? 'ja' : 'en')}
@@ -162,7 +151,6 @@ export function Navbar({ locale, onToggleLocale, onOpenApiDocs }: NavbarProps) {
         onClose={() => setIsMobileOpen(false)}
         locale={locale}
         activeSection={activeSection}
-        onOpenApiDocs={onOpenApiDocs}
       />
     </>
   );

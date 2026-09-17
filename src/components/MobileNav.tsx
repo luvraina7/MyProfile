@@ -2,17 +2,16 @@
 
 import React from 'react';
 import { Locale } from '@/types/career';
-import { X, Briefcase, Code2, Cpu, FolderOpen, Terminal } from 'lucide-react';
+import { X, Briefcase, Code2, Cpu, FolderOpen } from 'lucide-react';
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
   locale: Locale;
   activeSection: string;
-  onOpenApiDocs: () => void;
 }
 
-export function MobileNav({ isOpen, onClose, locale, activeSection, onOpenApiDocs }: MobileNavProps) {
+export function MobileNav({ isOpen, onClose, locale, activeSection }: MobileNavProps) {
   const links = [
     { id: 'hero', icon: Briefcase, label: locale === 'en' ? 'Home' : 'トップ' },
     { id: 'timeline', icon: Briefcase, label: locale === 'en' ? 'Timeline' : '経歴タイムライン' },
@@ -82,19 +81,6 @@ export function MobileNav({ isOpen, onClose, locale, activeSection, onOpenApiDoc
             })}
           </ul>
 
-          {/* API Button */}
-          <div className="mt-8 pt-6 border-t border-[var(--border-subtle)]">
-            <button
-              onClick={() => {
-                onClose();
-                onOpenApiDocs();
-              }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-mono font-medium rounded-xl bg-cyan-950/60 hover:bg-cyan-900/80 text-cyan-300 border border-cyan-500/30 shadow-sm shadow-cyan-500/10 transition-all"
-            >
-              <Terminal className="w-3.5 h-3.5" />
-              <span>cURL / API Playground</span>
-            </button>
-          </div>
         </div>
       </nav>
     </>

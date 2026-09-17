@@ -35,12 +35,11 @@ export function BackToTop({ locale }: BackToTopProps) {
     <button
       onClick={scrollToTop}
       aria-label={locale === 'en' ? 'Back to top' : 'トップへ戻る'}
-      aria-hidden={!isVisible}
-      tabIndex={isVisible ? 0 : -1}
+      inert={!isVisible}
       className={`fixed z-30 h-12 w-12 rounded-xl border border-cyan-300/60 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/35 hover:bg-cyan-400 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] transition-all duration-200 ${
         isVisible
           ? 'pointer-events-auto translate-y-0 opacity-100'
-          : 'pointer-events-none translate-y-2 opacity-0'
+          : 'invisible pointer-events-none translate-y-2 opacity-0'
       }`}
       style={{
         right: 'calc(1.5rem + env(safe-area-inset-right))',
