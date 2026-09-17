@@ -1,0 +1,508 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "LR Luv Raina Full Stack • Tokyo" [ref=e6] [cursor=pointer]:
+          - /url: "#hero"
+          - generic [ref=e7]: LR
+          - generic [ref=e8]:
+            - generic [ref=e9]: Luv Raina
+            - generic [ref=e10]: Full Stack • Tokyo
+        - navigation [ref=e11]:
+          - link "Timeline" [ref=e12] [cursor=pointer]:
+            - /url: "#timeline"
+          - link "AI & Agentic" [ref=e16] [cursor=pointer]:
+            - /url: "#agentic"
+          - link "Projects" [ref=e20] [cursor=pointer]:
+            - /url: "#projects"
+          - link "Skills" [ref=e23] [cursor=pointer]:
+            - /url: "#skills"
+        - generic [ref=e28]:
+          - button "cURL / API" [ref=e29]
+          - button "Toggle Language" [ref=e33]:
+            - generic [ref=e37]: 日本語
+          - button "Toggle Theme" [ref=e38]
+    - main [ref=e46]:
+      - generic [ref=e48]:
+        - generic [ref=e49]: Open to New Opportunities in Tokyo / Remote
+        - generic [ref=e52]:
+          - heading "Luv Raina" [level=1] [ref=e53]
+          - paragraph [ref=e54]: Full Stack Engineer
+          - paragraph [ref=e55]: Bridging high-performance modern web apps, mobile solutions, and AI-driven workflows across Japan for 6+ years.
+        - generic [ref=e56]:
+          - link "Explore Career Journey" [ref=e57] [cursor=pointer]:
+            - /url: "#timeline"
+          - button "Download Resume" [ref=e62]
+          - button "Test as API (cURL / JSON)" [ref=e69]
+        - generic [ref=e73]:
+          - generic [ref=e74]: Tokyo, Japan
+          - generic [ref=e79]: 6+ Years
+          - generic [ref=e84]:
+            - link "GitHub" [ref=e85] [cursor=pointer]:
+              - /url: https://github.com/luvraina7
+            - link "LinkedIn" [ref=e88] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/luv-raina-011a5a103/
+            - link "Email" [ref=e91] [cursor=pointer]:
+              - /url: mailto:luvraina7@gmail.com
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - text: 0+ Years
+              - generic [ref=e98]: Experience in Japan
+            - generic [ref=e99]: Enterprise & startup product engineering
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - text: +0%
+              - generic [ref=e102]: Consultation App Inquiries
+            - generic [ref=e103]: Boosted through 80% feature parity on mobile
+          - generic [ref=e104]:
+            - generic [ref=e105]:
+              - text: 0d → 1d
+              - generic [ref=e106]: Human Verification Time
+            - generic [ref=e107]: Reduced via AI-driven workflows & custom skills
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - text: Optimized
+              - generic [ref=e110]: Core Web Vitals
+            - generic [ref=e111]: Continuous LCP/CLS optimization with PageSpeed & Datadog
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - generic [ref=e115]: Career Progression
+          - heading "6+ Years of Impact in Japan" [level=2] [ref=e120]
+          - paragraph [ref=e121]: Tracking hands-on projects, architecture migrations, and measurable business outcomes.
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - generic [ref=e124]: "Filter:"
+            - button "All Roles" [ref=e128]
+            - button "AI & Automation" [ref=e129]
+            - button "Performance & Observability" [ref=e130]
+            - button "Frontend & UI" [ref=e131]
+            - button "Full-Stack & Cloud" [ref=e132]
+            - button "Mobile & API" [ref=e133]
+          - generic [ref=e134]:
+            - generic [ref=e135]: "Tech Tag:"
+            - button "Next.js" [ref=e136] [cursor=pointer]
+            - button "TypeScript" [ref=e137] [cursor=pointer]
+            - button "Docker" [ref=e138] [cursor=pointer]
+            - button "MCP" [ref=e139] [cursor=pointer]
+            - button "React Native" [ref=e140] [cursor=pointer]
+            - button "AWS" [ref=e141] [cursor=pointer]
+            - button "Ruby on Rails" [ref=e142] [cursor=pointer]
+            - button "Datadog" [ref=e143] [cursor=pointer]
+        - generic [ref=e144]:
+          - article [ref=e146]:
+            - generic [ref=e147]:
+              - generic [ref=e148]:
+                - generic [ref=e149]: 2025-04 ~ Present
+                - generic [ref=e153]: AI & Automation
+              - generic [ref=e154]:
+                - generic [ref=e155]:
+                  - generic [ref=e156]:
+                    - heading "Full Stack & AI Systems Engineer" [level=3] [ref=e157]
+                    - generic [ref=e158]: IBJ, Inc.
+                  - generic [ref=e164]: AI & Automation
+                - generic [ref=e165]:
+                  - generic [ref=e166]: Tokyo, Japan
+                  - generic [ref=e171]: 4 Members
+                - paragraph [ref=e178]: Leading AI-driven development and modernizing corporate web platforms from WordPress to Next.js using Docker, MCP, and custom Agentic Skills/Rules.
+                - generic [ref=e179]:
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: "Review Cycle Time: 7 days → 1 day"
+                    - generic [ref=e186]: Reduction in manual verification time via AI workflows
+                  - generic [ref=e191]:
+                    - generic [ref=e192]: "Pre-Commit Prep: Minutes → Seconds"
+                    - generic [ref=e193]: Automated via Webpack build noise cleanup skill
+                - generic [ref=e194]:
+                  - button "Key Deliverables & Responsibilities" [ref=e195]
+                  - list [ref=e199]:
+                    - listitem [ref=e200]:
+                      - generic [ref=e204]: Applied AI-driven development (Prompt/Context Engineering, MCP, Skills & Rules) to migrate WordPress corporate platforms to Next.js.
+                    - listitem [ref=e205]:
+                      - generic [ref=e209]: Developed automated HTML generation tooling from store data for shareholder special benefit partner agency directories.
+                    - listitem [ref=e210]:
+                      - generic [ref=e214]: Created custom Webpack build-noise cleanup Skill, cutting pre-commit cleanup from several minutes to seconds.
+                    - listitem [ref=e215]:
+                      - generic [ref=e219]: Established responsive layout audit Rule to detect cross-page regression anomalies early in development.
+                    - listitem [ref=e220]:
+                      - generic [ref=e224]: Engineered image optimization automated Skill (WebP conversion + unused asset pruning) to enhance page load speed.
+                - generic [ref=e225]:
+                  - button "Next.js" [ref=e226] [cursor=pointer]
+                  - button "TypeScript" [ref=e227] [cursor=pointer]
+                  - button "Docker" [ref=e228] [cursor=pointer]
+                  - button "MCP" [ref=e229] [cursor=pointer]
+                  - button "Cursor Skills & Rules" [ref=e230] [cursor=pointer]
+                  - button "Figma MCP" [ref=e231] [cursor=pointer]
+                  - button "WordPress" [ref=e232] [cursor=pointer]
+          - article [ref=e233]:
+            - generic [ref=e234]:
+              - generic [ref=e235]:
+                - generic [ref=e236]: 2024-03 ~ 2025-03
+                - generic [ref=e240]: Performance & DevOps
+              - generic [ref=e241]:
+                - generic [ref=e242]:
+                  - generic [ref=e243]:
+                    - heading "Frontend & Performance Engineer" [level=3] [ref=e244]
+                    - generic [ref=e245]: IBJ, Inc.
+                  - generic [ref=e251]: Performance & DevOps
+                - generic [ref=e252]:
+                  - generic [ref=e253]: Tokyo, Japan
+                  - generic [ref=e258]: 4 Members
+                - paragraph [ref=e265]: Spearheaded corporate website speed, Core Web Vitals optimization (LCP/CLS), Datadog observability, and Laravel CRUD service developments.
+                - generic [ref=e266]:
+                  - generic [ref=e271]:
+                    - generic [ref=e272]: "Core Web Vitals: Grade A"
+                    - generic [ref=e273]: Continuous LCP/CLS optimizations across corporate domains
+                  - generic [ref=e278]:
+                    - generic [ref=e279]: "Uptime Monitoring: 24/7 Observability"
+                    - generic [ref=e280]: Established Datadog real-time telemetry alerts
+                - generic [ref=e281]:
+                  - button "Key Deliverables & Responsibilities" [ref=e282]
+                  - list [ref=e286]:
+                    - listitem [ref=e287]:
+                      - generic [ref=e291]: Optimized IBJ corporate site page load speeds and Core Web Vitals (LCP, CLS, INP) over a 1-year continuous cycle using PageSpeed Insights.
+                    - listitem [ref=e292]:
+                      - generic [ref=e296]: Implemented Datadog performance and error monitoring dashboards to detect anomalies and ensure system uptime.
+                    - listitem [ref=e297]:
+                      - generic [ref=e301]: Engineered CRUD-based applications in Laravel/PHP and performed WordPress image and database maintenance for Wedding Navi services.
+                - generic [ref=e302]:
+                  - button "PageSpeed Insights" [ref=e303] [cursor=pointer]
+                  - button "Datadog" [ref=e304] [cursor=pointer]
+                  - button "Laravel" [ref=e305] [cursor=pointer]
+                  - button "PHP" [ref=e306] [cursor=pointer]
+                  - button "WordPress" [ref=e307] [cursor=pointer]
+                  - button "Restful API" [ref=e308] [cursor=pointer]
+          - article [ref=e309]:
+            - generic [ref=e310]:
+              - generic [ref=e311]:
+                - generic [ref=e312]: 2023-03 ~ 2024-02
+                - generic [ref=e316]: Frontend
+              - generic [ref=e317]:
+                - generic [ref=e318]:
+                  - generic [ref=e319]:
+                    - heading "Frontend Software Engineer" [level=3] [ref=e320]
+                    - generic [ref=e321]: IBJ, Inc.
+                  - generic [ref=e327]: Frontend
+                - generic [ref=e328]:
+                  - generic [ref=e329]: Tokyo, Japan
+                  - generic [ref=e334]: 5 Members
+                - paragraph [ref=e341]: Developed reservation and dating service web applications from scratch using Next.js, TypeScript, Storybook, and Figma design specs.
+                - generic [ref=e347]:
+                  - generic [ref=e348]: "Component Reusability: 100% Storybook Coverage"
+                  - generic [ref=e349]: Isolated component-driven design system
+                - generic [ref=e350]:
+                  - button "Key Deliverables & Responsibilities" [ref=e351]
+                  - list [ref=e355]:
+                    - listitem [ref=e356]:
+                      - generic [ref=e360]: Built component-driven Next.js web application for "Meal Dating" reservation flow from UI design to production deployment.
+                    - listitem [ref=e361]:
+                      - generic [ref=e365]: Constructed isolated and reusable UI components using Storybook, speeding up frontend iteration and unit testing.
+                    - listitem [ref=e366]:
+                      - generic [ref=e370]: Collaborated closely with designers using Figma markup specs and managed sprint velocity via Jira ticket tracking.
+                - generic [ref=e371]:
+                  - button "Next.js" [ref=e372] [cursor=pointer]
+                  - button "TypeScript" [ref=e373] [cursor=pointer]
+                  - button "JavaScript" [ref=e374] [cursor=pointer]
+                  - button "Storybook" [ref=e375] [cursor=pointer]
+                  - button "Figma" [ref=e376] [cursor=pointer]
+                  - button "Jira" [ref=e377] [cursor=pointer]
+          - article [ref=e378]:
+            - generic [ref=e379]:
+              - generic [ref=e380]:
+                - generic [ref=e381]: 2021-08 ~ 2023-02
+                - generic [ref=e385]: Full-Stack
+              - generic [ref=e386]:
+                - generic [ref=e387]:
+                  - generic [ref=e388]:
+                    - heading "Full Stack & Mobile Engineer" [level=3] [ref=e389]
+                    - generic [ref=e390]: IBJ, Inc.
+                  - generic [ref=e396]: Full-Stack
+                - generic [ref=e397]:
+                  - generic [ref=e398]: Tokyo, Japan
+                  - generic [ref=e403]: 15 Members
+                - paragraph [ref=e410]: Developed marriage alliance member apps & portal with Swift, Ruby on Rails, PostgreSQL, and AWS infrastructure management.
+                - generic [ref=e416]:
+                  - generic [ref=e417]: "Release Cycle: Accelerated"
+                  - generic [ref=e418]: Significant reduction in manual QA effort via CAT pipeline
+                - generic [ref=e419]:
+                  - button "Key Deliverables & Responsibilities" [ref=e420]
+                  - list [ref=e424]:
+                    - listitem [ref=e425]:
+                      - generic [ref=e429]: Engineered new features and bugfixes for iOS member app using Swift and UIKit; maintained corporate web portals using Ruby on Rails.
+                    - listitem [ref=e430]:
+                      - generic [ref=e434]: "Managed AWS cloud services: S3 file processing, IAM user/role policies, EC2 server administration, Route 53 DNS records, and RDS PostgreSQL."
+                    - listitem [ref=e435]:
+                      - generic [ref=e439]: Standardized CAT automated & manual testing pipelines, cutting down manual QA regression hours.
+                - generic [ref=e440]:
+                  - button "Swift" [ref=e441] [cursor=pointer]
+                  - button "Ruby on Rails" [ref=e442] [cursor=pointer]
+                  - button "AWS (S3, EC2, IAM, Route 53, RDS)" [ref=e443] [cursor=pointer]
+                  - button "PostgreSQL" [ref=e444] [cursor=pointer]
+                  - button "jQuery" [ref=e445] [cursor=pointer]
+                  - button "Backbone.js" [ref=e446] [cursor=pointer]
+          - article [ref=e447]:
+            - generic [ref=e448]:
+              - generic [ref=e449]:
+                - generic [ref=e450]: 2019-10 ~ 2021-07
+                - generic [ref=e454]: Mobile
+              - generic [ref=e455]:
+                - generic [ref=e456]:
+                  - generic [ref=e457]:
+                    - heading "Mobile & API Engineer" [level=3] [ref=e458]
+                    - generic [ref=e459]: IBJ, Inc.
+                  - generic [ref=e465]: Mobile
+                - generic [ref=e466]:
+                  - generic [ref=e467]: Tokyo, Japan
+                  - generic [ref=e472]: 10 Members
+                - paragraph [ref=e479]: Built cross-platform React Native consultation app with Redux Toolkit and managed unified OpenAPI (Swagger) API specifications.
+                - generic [ref=e480]:
+                  - generic [ref=e485]:
+                    - generic [ref=e486]: "Mobile Inquiries: +30%"
+                    - generic [ref=e487]: Increase in app-originated consultations after feature rollout
+                  - generic [ref=e492]:
+                    - generic [ref=e493]: "Feature Parity: 80%"
+                    - generic [ref=e494]: Web-to-mobile consultation feature translation
+                - generic [ref=e495]:
+                  - button "Key Deliverables & Responsibilities" [ref=e496]
+                  - list [ref=e500]:
+                    - listitem [ref=e501]:
+                      - generic [ref=e505]: Implemented core consultation mobile features in React Native (JSX, Redux Toolkit) achieving 80% feature parity with web portal.
+                    - listitem [ref=e506]:
+                      - generic [ref=e510]: Defined and maintained common OpenAPI (Swagger) API contracts, smoothing collaboration between mobile team and Rails backend.
+                - generic [ref=e511]:
+                  - button "React Native" [ref=e512] [cursor=pointer]
+                  - button "JavaScript" [ref=e513] [cursor=pointer]
+                  - button "Redux Toolkit" [ref=e514] [cursor=pointer]
+                  - button "OpenAPI (Swagger)" [ref=e515] [cursor=pointer]
+                  - button "Adobe XD" [ref=e516] [cursor=pointer]
+                  - button "Ruby on Rails" [ref=e517] [cursor=pointer]
+      - generic [ref=e519]:
+        - generic [ref=e520]:
+          - generic [ref=e521]: Agentic Engineering & AI Workflows
+          - heading "Real-World AI-Driven Development in Production" [level=2] [ref=e526]
+          - paragraph [ref=e527]: "Moving beyond basic prompt chat: architecting custom Agentic Skills, Rules, and Model Context Protocol (MCP) to automate mission-critical engineering workflows."
+        - generic [ref=e528]:
+          - generic [ref=e529]:
+            - generic [ref=e530]:
+              - generic [ref=e531]: Minutes → Seconds
+              - heading "Webpack Build Noise Elimination Skill" [level=3] [ref=e536]
+              - paragraph [ref=e537]: Automates pre-commit hygiene and builds cleanup scripts, drastically minimizing PR review overhead.
+            - generic [ref=e538]: Production Tested & Maintained
+          - generic [ref=e542]:
+            - generic [ref=e543]:
+              - generic [ref=e544]: Early Anomaly Detection
+              - heading "Responsive Layout Audit Rule" [level=3] [ref=e550]
+              - paragraph [ref=e551]: Rule-based layout regression auditor preventing CSS side-effects across multi-page enterprise platforms.
+            - generic [ref=e552]: Production Tested & Maintained
+          - generic [ref=e556]:
+            - generic [ref=e557]:
+              - generic [ref=e558]: Core Web Vitals Boost
+              - heading "Automated Image Optimization Skill" [level=3] [ref=e564]
+              - paragraph [ref=e565]: Autonomous WebP conversion and asset tree-shaking pipeline ensuring zero bloated assets reach production.
+            - generic [ref=e566]: Production Tested & Maintained
+          - generic [ref=e570]:
+            - generic [ref=e571]:
+              - generic [ref=e572]: 7 Days → 1 Day Verification
+              - heading "WordPress to Next.js AI Migration" [level=3] [ref=e578]
+              - paragraph [ref=e579]: Leveraged MCP (Model Context Protocol) and custom agent rules to accelerate legacy enterprise migration.
+            - generic [ref=e580]: Production Tested & Maintained
+      - generic [ref=e585]:
+        - generic [ref=e586]:
+          - generic [ref=e587]: Featured Work
+          - heading "Projects & Artifacts" [level=2] [ref=e591]
+          - paragraph [ref=e592]: Tangible proof of work — from this portfolio itself to production-grade engineering.
+        - generic [ref=e593]:
+          - generic [ref=e594]:
+            - generic [ref=e595]:
+              - generic [ref=e596]: Meta-Portfolio
+              - heading "This Portfolio — Career Timeline API" [level=3] [ref=e602]
+              - paragraph [ref=e603]: The site you're viewing now. A bilingual career portfolio with an interactive OpenAPI 3.1 playground, filterable timeline, and resume download — built entirely with AI-assisted agentic workflows.
+            - generic [ref=e604]:
+              - generic [ref=e605]:
+                - generic [ref=e606] [cursor=pointer]: Next.js 16
+                - generic [ref=e607] [cursor=pointer]: TypeScript
+                - generic [ref=e608] [cursor=pointer]: Tailwind CSS
+                - generic [ref=e609] [cursor=pointer]: OpenAPI 3.1
+              - link "View Live" [ref=e611] [cursor=pointer]:
+                - /url: "#hero"
+          - generic [ref=e617]:
+            - generic [ref=e618]:
+              - generic [ref=e619]: 85% Time Saved
+              - heading "WordPress → Next.js Enterprise Migration" [level=3] [ref=e625]
+              - paragraph [ref=e626]: Led AI-accelerated migration of legacy corporate platforms using custom MCP integration, reducing human verification from 7 days to 1 day.
+            - generic [ref=e628]:
+              - generic [ref=e629] [cursor=pointer]: Next.js
+              - generic [ref=e630] [cursor=pointer]: Docker
+              - generic [ref=e631] [cursor=pointer]: MCP
+              - generic [ref=e632] [cursor=pointer]: WordPress
+          - generic [ref=e633]:
+            - generic [ref=e634]:
+              - generic [ref=e635]: +30% Inquiries
+              - heading "Cross-Platform Consultation App" [level=3] [ref=e640]
+              - paragraph [ref=e641]: React Native mobile app achieving 80% feature parity with web portal, resulting in 30% increase in app-originated consultations.
+            - generic [ref=e643]:
+              - generic [ref=e644] [cursor=pointer]: React Native
+              - generic [ref=e645] [cursor=pointer]: Redux Toolkit
+              - generic [ref=e646] [cursor=pointer]: OpenAPI
+              - generic [ref=e647] [cursor=pointer]: Ruby on Rails
+          - generic [ref=e648]:
+            - generic [ref=e649]:
+              - generic [ref=e650]: Grade A CWV
+              - heading "Core Web Vitals Optimization Suite" [level=3] [ref=e655]
+              - paragraph [ref=e656]: Year-long continuous optimization project for enterprise corporate sites — LCP/CLS improvements, Datadog observability dashboards, and automated image optimization pipelines.
+            - generic [ref=e658]:
+              - generic [ref=e659] [cursor=pointer]: PageSpeed
+              - generic [ref=e660] [cursor=pointer]: Datadog
+              - generic [ref=e661] [cursor=pointer]: WebP Pipeline
+              - generic [ref=e662] [cursor=pointer]: Custom Skills
+      - generic [ref=e664]:
+        - generic [ref=e665]:
+          - generic [ref=e666]: Core Competencies
+          - heading "Technical Expertise" [level=2] [ref=e672]
+          - paragraph [ref=e673]: Proven in high-traffic production environments across frontend, backend, and infrastructure.
+        - generic [ref=e674]:
+          - generic [ref=e676]:
+            - heading "Frontend & UI" [level=3] [ref=e677]
+            - list [ref=e678]:
+              - listitem [ref=e679]:
+                - generic [ref=e680]:
+                  - generic [ref=e681]: Next.js
+                  - generic [ref=e686]:
+                    - generic [ref=e687]: 3 yrs
+                    - generic [ref=e688]: Expert
+              - listitem [ref=e690]:
+                - generic [ref=e691]:
+                  - generic [ref=e692]: React / React Native
+                  - generic [ref=e697]:
+                    - generic [ref=e698]: 5 yrs
+                    - generic [ref=e699]: Expert
+              - listitem [ref=e701]:
+                - generic [ref=e702]:
+                  - generic [ref=e703]: TypeScript / JavaScript
+                  - generic [ref=e708]:
+                    - generic [ref=e709]: 6 yrs
+                    - generic [ref=e710]: Expert
+              - listitem [ref=e712]:
+                - generic [ref=e713]:
+                  - generic [ref=e714]: Storybook
+                  - generic [ref=e719]:
+                    - generic [ref=e720]: 2 yrs
+                    - generic [ref=e721]: Proficient
+              - listitem [ref=e723]:
+                - generic [ref=e724]:
+                  - generic [ref=e725]: HTML5 / CSS3 / Tailwind
+                  - generic [ref=e730]:
+                    - generic [ref=e731]: 6 yrs
+                    - generic [ref=e732]: Expert
+          - generic [ref=e735]:
+            - heading "Backend & Cloud" [level=3] [ref=e736]
+            - list [ref=e737]:
+              - listitem [ref=e738]:
+                - generic [ref=e739]:
+                  - generic [ref=e740]: Ruby on Rails
+                  - generic [ref=e745]:
+                    - generic [ref=e746]: 3 yrs
+                    - generic [ref=e747]: Proficient
+              - listitem [ref=e749]:
+                - generic [ref=e750]:
+                  - generic [ref=e751]: Laravel / PHP
+                  - generic [ref=e756]:
+                    - generic [ref=e757]: 2 yrs
+                    - generic [ref=e758]: Proficient
+              - listitem [ref=e760]:
+                - generic [ref=e761]:
+                  - generic [ref=e762]: Swift (iOS)
+                  - generic [ref=e767]:
+                    - generic [ref=e768]: 2 yrs
+                    - generic [ref=e769]: Familiar
+              - listitem [ref=e771]:
+                - generic [ref=e772]:
+                  - generic [ref=e773]: PostgreSQL / RDS
+                  - generic [ref=e778]:
+                    - generic [ref=e779]: 4 yrs
+                    - generic [ref=e780]: Proficient
+              - listitem [ref=e782]:
+                - generic [ref=e783]:
+                  - generic [ref=e784]: AWS (S3, EC2, IAM, Route 53)
+                  - generic [ref=e789]:
+                    - generic [ref=e790]: 4 yrs
+                    - generic [ref=e791]: Proficient
+              - listitem [ref=e793]:
+                - generic [ref=e794]:
+                  - generic [ref=e795]: Docker
+                  - generic [ref=e800]:
+                    - generic [ref=e801]: 3 yrs
+                    - generic [ref=e802]: Proficient
+          - generic [ref=e805]:
+            - heading "AI & Performance & Tooling" [level=3] [ref=e806]
+            - list [ref=e807]:
+              - listitem [ref=e808]:
+                - generic [ref=e809]:
+                  - generic [ref=e810]: AI Workflows (Skills, Rules, MCP)
+                  - generic [ref=e815]:
+                    - generic [ref=e816]: 2 yrs
+                    - generic [ref=e817]: Expert
+              - listitem [ref=e819]:
+                - generic [ref=e820]:
+                  - generic [ref=e821]: Core Web Vitals (LCP, CLS)
+                  - generic [ref=e826]:
+                    - generic [ref=e827]: 2 yrs
+                    - generic [ref=e828]: Expert
+              - listitem [ref=e830]:
+                - generic [ref=e831]:
+                  - generic [ref=e832]: Datadog Monitoring
+                  - generic [ref=e837]:
+                    - generic [ref=e838]: 2 yrs
+                    - generic [ref=e839]: Proficient
+              - listitem [ref=e841]:
+                - generic [ref=e842]:
+                  - generic [ref=e843]: OpenAPI / Swagger
+                  - generic [ref=e848]:
+                    - generic [ref=e849]: 4 yrs
+                    - generic [ref=e850]: Expert
+              - listitem [ref=e852]:
+                - generic [ref=e853]:
+                  - generic [ref=e854]: Figma / Adobe XD
+                  - generic [ref=e859]:
+                    - generic [ref=e860]: 4 yrs
+                    - generic [ref=e861]: Proficient
+    - contentinfo [ref=e864]:
+      - generic [ref=e865]:
+        - generic [ref=e866]:
+          - heading "How This Site Was Built" [level=3] [ref=e871]
+          - paragraph [ref=e872]: This portfolio itself is a proof of competence — built with modern tooling and AI-assisted agentic workflows from end to end.
+          - generic [ref=e873]:
+            - generic [ref=e874]:
+              - generic [ref=e875]: ⚡
+              - generic [ref=e876]: Next.js 16
+            - generic [ref=e877]:
+              - generic [ref=e878]: 🔷
+              - generic [ref=e879]: TypeScript
+            - generic [ref=e880]:
+              - generic [ref=e881]: 🎨
+              - generic [ref=e882]: Tailwind CSS
+            - generic [ref=e883]:
+              - generic [ref=e884]: 📡
+              - generic [ref=e885]: OpenAPI 3.1
+          - generic [ref=e886]:
+            - generic [ref=e887]:
+              - generic [ref=e888]: 🤖
+              - generic [ref=e889]: Custom Agentic Skills & Rules
+            - generic [ref=e890]:
+              - generic [ref=e891]: 🔗
+              - generic [ref=e892]: MCP Integration
+            - generic [ref=e893]:
+              - generic [ref=e894]: ✨
+              - generic [ref=e895]: AI-Assisted Development
+        - generic [ref=e896]:
+          - generic [ref=e897]:
+            - generic [ref=e898]: Luv Raina • Tokyo, Japan
+            - generic [ref=e899]: Engineered with Next.js App Router, TypeScript, and AI Agentic Skills & Rules.
+          - generic [ref=e900]:
+            - button "OpenAPI 3.1 Spec" [ref=e901]
+            - link "GitHub" [ref=e905] [cursor=pointer]:
+              - /url: https://github.com/luvraina7
+            - link "LinkedIn" [ref=e908] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/luv-raina-011a5a103/
+            - link "Email" [ref=e911] [cursor=pointer]:
+              - /url: mailto:contact@example.com
+  - button "Open Next.js Dev Tools" [ref=e920] [cursor=pointer]

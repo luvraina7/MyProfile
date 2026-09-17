@@ -17,6 +17,7 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const { ref: headerRef, isVisible: headerVisible } = useInView({ threshold: 0.15 });
+  const { ref: spineRef, isVisible: spineVisible } = useInView({ threshold: 0.05 });
 
   const categories = ['All', 'AI & Automation', 'Performance & DevOps', 'Frontend', 'Full-Stack', 'Mobile'];
 
@@ -59,9 +60,10 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
           locale={locale}
         />
 
-        {/* Timeline Container with Spine */}
-        <div className="relative mt-12">
-          <div className="timeline-spine"></div>
+        {/* Timeline Container with Spine — spine stays hidden until the container is in view
+            so it never paints before the cards on mid-scroll refresh */}
+        <div ref={spineRef} className="relative mt-12">
+          <div className={`timeline-spine ${spineVisible && filteredTimeline.length > 0 ? 'is-visible' : ''}`}></div>
 
           {filteredTimeline.length > 0 ? (
             filteredTimeline.map((item, idx) => (

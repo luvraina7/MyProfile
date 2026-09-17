@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { ProfileData, Locale } from '@/types/career';
-import { MapPin, Sparkles, ArrowDown, Terminal, Mail, Download, ChevronDown, FileText } from 'lucide-react';
+import { MapPin, Sparkles, ArrowDown, Mail, Download, ChevronDown, FileText } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { useInView } from '@/hooks/useInView';
 import { useCountUp } from '@/hooks/useCountUp';
@@ -10,7 +10,6 @@ import { useCountUp } from '@/hooks/useCountUp';
 interface HeroProps {
   data: ProfileData;
   locale: Locale;
-  onOpenApiDocs: () => void;
 }
 
 const RESUME_FILES = {
@@ -41,7 +40,7 @@ function CountUpMetric({ value, isVisible }: { value: string; isVisible: boolean
   return <>{display}</>;
 }
 
-export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
+export function Hero({ data, locale }: HeroProps) {
   const ambientRef = useRef<HTMLDivElement>(null);
   const [resumeMenuOpen, setResumeMenuOpen] = useState(false);
   const resumeMenuRef = useRef<HTMLDivElement>(null);
@@ -155,13 +154,6 @@ export function Hero({ data, locale, onOpenApiDocs }: HeroProps) {
             )}
           </div>
 
-          <button
-            onClick={onOpenApiDocs}
-            className="px-5 py-3.5 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-subtle-hover)] text-[var(--text-primary)] font-mono-custom text-sm border border-[var(--border-subtle)] flex items-center gap-2.5 transition-all hover:border-cyan-500/40"
-          >
-            <Terminal className="w-4 h-4 text-cyan-400" />
-            <span>{locale === 'en' ? 'Test as API (cURL / JSON)' : 'APIとしてテスト (cURL / JSON)'}</span>
-          </button>
         </div>
 
         {/* Quick Meta (Location / Experience / Socials) */}
