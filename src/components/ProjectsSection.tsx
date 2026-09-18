@@ -3,7 +3,7 @@
 import React from 'react';
 import { Locale } from '@/types/career';
 import { useInView } from '@/hooks/useInView';
-import { FolderOpen, ExternalLink, Terminal, Cpu, Globe } from 'lucide-react';
+import { FolderOpen, ExternalLink, Terminal, Cpu } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 interface ProjectsSectionProps {
@@ -31,15 +31,6 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
       title: 'Projects & Artifacts',
       subtitle: 'Tangible proof of work — from this portfolio itself to production-grade engineering.',
       projects: [
-        {
-          title: 'This Portfolio — Career Timeline API',
-          description: 'The site you\'re viewing now. A bilingual career portfolio with an interactive OpenAPI 3.1 playground, filterable timeline, and resume download — built entirely with AI-assisted agentic workflows.',
-          techStack: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'OpenAPI 3.1'],
-          impact: 'Meta-Portfolio',
-          icon: Globe,
-          iconColor: 'text-cyan-400',
-          liveUrl: '#hero',
-        },
         {
           title: 'WordPress → Next.js Enterprise Migration',
           description: 'Led AI-accelerated migration of legacy corporate platforms using custom MCP integration, reducing human verification from 7 days to 1 day.',
@@ -71,15 +62,6 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
       title: 'プロジェクト・成果物',
       subtitle: '開発成果の実例 — 本ポートフォリオから本番環境のエンジニアリングまで。',
       projects: [
-        {
-          title: '本ポートフォリオ — 経歴タイムライン API',
-          description: '今ご覧のサイトそのものです。バイリンガル対応のキャリアポートフォリオで、インタラクティブなOpenAPI 3.1プレイグラウンド、フィルタリング可能なタイムライン、履歴書ダウンロード機能を搭載。AIエージェント駆動ワークフローで構築。',
-          techStack: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'OpenAPI 3.1'],
-          impact: 'メタ・ポートフォリオ',
-          icon: Globe,
-          iconColor: 'text-cyan-400',
-          liveUrl: '#hero',
-        },
         {
           title: 'WordPress → Next.js エンタープライズ移行',
           description: 'カスタムMCP統合を活用し、レガシー企業プラットフォームのAI加速移行をリード。人手による検証を7日から1日に短縮。',
