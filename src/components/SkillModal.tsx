@@ -213,7 +213,7 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
     () => false
   );
   const [activeTab, setActiveTab] = useState<'preview' | 'raw' | 'scripts'>('preview');
-  const [langFilter, setLangFilter] = useState<'all' | 'ja' | 'en'>(locale === 'ja' ? 'ja' : 'en');
+  const [langFilter, setLangFilter] = useState<'ja' | 'en'>(locale === 'ja' ? 'ja' : 'en');
   const [selectedScript, setSelectedScript] = useState<'find' | 'revert'>('find');
   const [rawMarkdown, setRawMarkdown] = useState<string>('');
   const [isCopiedMarkdown, setIsCopiedMarkdown] = useState<boolean>(false);
@@ -224,21 +224,35 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
 
   useEffect(() => {
     if (isOpen) {
+      // Scroll freeze: lock body at current scroll offset
+      const scrollY = window.scrollY;
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
 
-      if (!rawMarkdown) {
-        fetch(downloadUrl)
-          .then((res) => res.text())
-          .then((text) => setRawMarkdown(text))
-          .catch((err) => console.error('Failed to load skill file:', err));
-      }
-    } else {
-      document.body.style.overflow = '';
+      return () => {
+        const top = document.body.style.top;
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        if (top) {
+          window.scrollTo(0, parseInt(top || '0', 10) * -1);
+        }
+      };
     }
+  }, [isOpen]);
 
-    return () => {
-      document.body.style.overflow = '';
-    };
+  useEffect(() => {
+    if (isOpen && !rawMarkdown) {
+      fetch(downloadUrl)
+        .then((res) => res.text())
+        .then((text) => setRawMarkdown(text))
+        .catch((err) => console.error('Failed to load skill file:', err));
+    }
   }, [isOpen, rawMarkdown, downloadUrl]);
 
   useEffect(() => {
@@ -278,41 +292,63 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
       aria-modal="true"
       aria-labelledby="skill-modal-title"
     >
-      <div className="w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-amber-500/35 bg-[#0b111e] text-slate-100">
+      <div className="skill-spec-modal w-full max-w-5xl h-[92vh] sm:h-auto sm:max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-amber-500/35 bg-[#0b111e] text-slate-100">
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 bg-[#070b14]/95">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="p-2.5 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0 shadow-inner">
-              <Zap className="w-5 h-5" />
-            </div>
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <h2
-                  id="skill-modal-title"
-                  className="text-base sm:text-lg font-bold text-white font-mono truncate"
-                >
-                  clean-kaisetu-asset-rebuilds.skill.md
-                </h2>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
-                  Cursor Agent Skill
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
-                  19.9 KB
-                </span>
+        <div className="p-3.5 sm:p-5 border-b border-slate-800/80 bg-[#070b14]/95 relative">
+          <div className="flex items-start justify-between gap-3">
+            {/* Left: Icon + Title + Meta */}
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0 pr-8 sm:pr-0">
+              <div className="p-2 sm:p-2.5 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0 shadow-inner mt-0.5">
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <p className="text-xs text-slate-300 truncate">
-                {locale === 'en'
-                  ? 'Autonomous Webpack noise detector and pre-commit cleanup tool for enterprise assets'
-                  : 'webpack再ビルドによる不要な差分（ノイズ）を自動検出し、コミット前に安全に元に戻す自作Skill'}
-              </p>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
+                  <h2
+                    id="skill-modal-title"
+                    className="text-sm sm:text-lg font-bold text-white font-mono break-all sm:break-normal"
+                  >
+                    clean-kaisetu-asset-rebuilds.skill.md
+                  </h2>
+                  <div className="flex items-center gap-1.5">
+                    <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                      Cursor Agent Skill
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
+                      19.9 KB
+                    </span>
+                  </div>
+                </div>
+                <p className="text-[11px] sm:text-xs text-slate-300 leading-snug line-clamp-2">
+                  {langFilter === 'en'
+                    ? 'Autonomous Webpack noise detector and pre-commit cleanup tool for enterprise assets'
+                    : 'webpack再ビルドによる不要な差分（ノイズ）を自動検出し、コミット前に安全に元に戻す自作Skill'}
+                </p>
+              </div>
             </div>
+
+            {/* Desktop Close Button */}
+            <button
+              onClick={onClose}
+              className="hidden sm:flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
+              aria-label="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            {/* Mobile Absolute Close Button */}
+            <button
+              onClick={onClose}
+              className="sm:hidden absolute top-3 right-3 flex items-center justify-center p-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer active:scale-95 modal-close-btn"
+              aria-label="Close modal"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
 
-          {/* Action buttons in header */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-auto">
+          {/* Action buttons row */}
+          <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-slate-800/50 sm:border-0 sm:mt-2.5 sm:pt-0">
             <button
               onClick={copyMarkdownToClipboard}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-all cursor-pointer shadow-sm"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-all cursor-pointer shadow-sm active:scale-95"
               title="Copy entire markdown content"
             >
               {isCopiedMarkdown ? (
@@ -333,29 +369,21 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
             <a
               href={downloadUrl}
               download={downloadFilename}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-md shadow-amber-500/20 transition-all cursor-pointer"
+              className="modal-download-btn flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
               <span>{locale === 'en' ? 'Download .md' : 'ダウンロード'}</span>
             </a>
-
-            <button
-              onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors ml-1 cursor-pointer"
-              aria-label="Close modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
           </div>
         </div>
 
         {/* View Switcher & Filter Toolbar */}
-        <div className="px-4 sm:px-6 py-2.5 border-b border-slate-800/80 bg-[#080d19]/90 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="px-3.5 sm:px-6 py-2.5 border-b border-slate-800/80 bg-[#080d19]/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
           {/* Main Tabs */}
-          <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900 border border-slate-800">
+          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-900 border border-slate-800 overflow-x-auto scrollbar-none">
             <button
               onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition-all cursor-pointer ${
                 activeTab === 'preview'
                   ? 'bg-amber-500/20 text-amber-300 border border-amber-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
@@ -366,7 +394,7 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
             </button>
             <button
               onClick={() => setActiveTab('scripts')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition-all cursor-pointer ${
                 activeTab === 'scripts'
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
@@ -377,7 +405,7 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
             </button>
             <button
               onClick={() => setActiveTab('raw')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition-all cursor-pointer ${
                 activeTab === 'raw'
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
@@ -390,24 +418,14 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
 
           {/* Language filter for preview tab */}
           {activeTab === 'preview' && (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 self-end sm:self-auto">
               <span className="text-slate-400 text-[11px] hidden sm:inline">
-                {locale === 'en' ? 'Language View:' : '言語切替:'}
+                {langFilter === 'en' ? 'Language View:' : '言語切替:'}
               </span>
               <div className="inline-flex rounded-md p-0.5 bg-slate-900 border border-slate-800">
                 <button
-                  onClick={() => setLangFilter('all')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'all'
-                      ? 'bg-slate-700 text-white font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  {locale === 'en' ? 'Both (Full)' : '全文 (日英)'}
-                </button>
-                <button
                   onClick={() => setLangFilter('ja')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
+                  className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
                     langFilter === 'ja'
                       ? 'bg-amber-500/20 text-amber-300 font-semibold'
                       : 'text-slate-400 hover:text-white'
@@ -417,7 +435,7 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                 </button>
                 <button
                   onClick={() => setLangFilter('en')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
+                  className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
                     langFilter === 'en'
                       ? 'bg-cyan-500/20 text-cyan-300 font-semibold'
                       : 'text-slate-400 hover:text-white'
@@ -483,10 +501,10 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-amber-400 font-bold text-xs">
                     <Zap className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'Minutes → Seconds' : '工数短縮'}</span>
+                    <span>{langFilter === 'en' ? 'Minutes → Seconds' : '工数短縮'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Eliminates manual pre-commit asset file triage and git diff review.'
                       : 'コミット前の手動選別作業をゼロにし、PRレビューを実変更に集中化。'}
                   </p>
@@ -495,10 +513,10 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'Strict Hard Guards' : '安全ガード'}</span>
+                    <span>{langFilter === 'en' ? 'Strict Hard Guards' : '安全ガード'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Strictly scoped to assets/. Cannot touch src/, configs, or untracked files.'
                       : '操作対象をassets/のみに限定。srcや設定ファイルへの誤爆を物理的に防止。'}
                   </p>
@@ -507,10 +525,10 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs">
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'Human-in-the-Loop' : '対話型確認'}</span>
+                    <span>{langFilter === 'en' ? 'Human-in-the-Loop' : '対話型確認'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Never auto-reverts. Previews intended vs unintended diffs first.'
                       : '自動revert禁止。分類プレビューを表示しユーザー確認後にのみ実行。'}
                   </p>
@@ -519,10 +537,10 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs">
                     <Terminal className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'Webpack AST Mapping' : '設定マップ解析'}</span>
+                    <span>{langFilter === 'en' ? 'Webpack AST Mapping' : '設定マップ解析'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Parses webpack.config.js entries and MiniCssExtractPlugin mapping.'
                       : 'webpack.config.jsのエントリを読み込みソースと出力の依存関係を解決。'}
                   </p>
@@ -597,7 +615,9 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-slate-400">
-                    Detector → Preview → Confirm → Safe Revert
+                    {langFilter === 'en'
+                      ? 'Detector → Preview → Confirm → Safe Revert'
+                      : '検出 → プレビュー → 確認 → 安全Revert'}
                   </span>
                 </div>
 
@@ -696,7 +716,7 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
               </div>
 
               {/* Bilingual Detailed Explanations */}
-              {(langFilter === 'all' || langFilter === 'ja') && (
+              {langFilter === 'ja' && (
                 <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
                   <div className="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
                     <span>🇯🇵</span>
@@ -720,7 +740,7 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                 </div>
               )}
 
-              {(langFilter === 'all' || langFilter === 'en') && (
+              {langFilter === 'en' && (
                 <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
                   <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs uppercase tracking-wider">
                     <span>🇬🇧</span>
@@ -855,10 +875,10 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
           )}
         </div>
 
-        {/* Modal Footer */}
-        <div className="p-4 sm:p-5 border-t border-slate-800/80 bg-[#070b14]/95 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-slate-400 font-mono">
-            <Terminal className="w-4 h-4 text-cyan-400 shrink-0" />
+        {/* Modal Footer: Clean Target Path Bar (redundant bottom action buttons removed) */}
+        <div className="p-3 sm:p-4 border-t border-slate-800/80 bg-[#070b14]/95 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-slate-400 font-mono text-[11px] sm:text-xs min-w-0">
+            <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 shrink-0" />
             <span className="truncate">
               Target path:{' '}
               <code className="text-cyan-300">
@@ -866,28 +886,9 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
               </code>
             </span>
           </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-colors cursor-pointer"
-            >
-              {locale === 'en' ? 'Close' : '閉じる'}
-            </button>
-
-            <a
-              href={downloadUrl}
-              download={downloadFilename}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-md shadow-amber-500/20 transition-all cursor-pointer"
-            >
-              <Download className="w-4 h-4" />
-              <span>
-                {locale === 'en'
-                  ? 'Download Skill (.md) for Review'
-                  : 'レビュー用にSkill (.md) をダウンロード'}
-              </span>
-            </a>
-          </div>
+          <span className="text-[11px] font-mono text-slate-400 shrink-0 hidden sm:inline">
+            Press <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-[10px] text-slate-200">ESC</kbd> to close
+          </span>
         </div>
       </div>
     </div>,

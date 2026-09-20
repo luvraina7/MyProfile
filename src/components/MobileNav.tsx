@@ -2,19 +2,20 @@
 
 import React from 'react';
 import { Locale } from '@/types/career';
-import { X, Briefcase, Code2, Cpu, FolderOpen } from 'lucide-react';
+import { X, Briefcase, Code2, Cpu, FolderOpen, Languages } from 'lucide-react';
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
   locale: Locale;
   activeSection: string;
+  onToggleLocale?: (newLocale: Locale) => void;
 }
 
-export function MobileNav({ isOpen, onClose, locale, activeSection }: MobileNavProps) {
+export function MobileNav({ isOpen, onClose, locale, activeSection, onToggleLocale }: MobileNavProps) {
   const links = [
-    { id: 'hero', icon: Briefcase, label: locale === 'en' ? 'Home' : 'トップ' },
-    { id: 'timeline', icon: Briefcase, label: locale === 'en' ? 'Timeline' : '経歴タイムライン' },
+    { id: 'hero', icon: Briefcase, label: locale === 'en' ? 'Home / Overview' : 'トップ・概要' },
+    { id: 'timeline', icon: Briefcase, label: locale === 'en' ? 'Career Timeline' : '経歴タイムライン' },
     { id: 'agentic', icon: Cpu, label: locale === 'en' ? 'AI & Agentic' : 'AI・エージェント開発' },
     { id: 'projects', icon: FolderOpen, label: locale === 'en' ? 'Projects' : 'プロジェクト' },
     { id: 'skills', icon: Code2, label: locale === 'en' ? 'Skills' : 'スキル' },
@@ -51,7 +52,7 @@ export function MobileNav({ isOpen, onClose, locale, activeSection }: MobileNavP
             </span>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border border-[var(--border-subtle)] transition-colors"
+              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border border-[var(--border-subtle)] transition-colors cursor-pointer"
               aria-label="Close menu"
             >
               <X className="w-4 h-4" />
@@ -67,7 +68,7 @@ export function MobileNav({ isOpen, onClose, locale, activeSection }: MobileNavP
                 <li key={link.id}>
                   <button
                     onClick={() => handleLinkClick(link.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${
                       isActive
                         ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
                         : 'text-[var(--text-secondary)] hover:bg-white/5 hover:text-[var(--text-primary)] border border-transparent'
@@ -80,6 +81,46 @@ export function MobileNav({ isOpen, onClose, locale, activeSection }: MobileNavP
               );
             })}
           </ul>
+
+          {/* Language Switcher in Mobile Drawer */}
+          {onToggleLocale && (
+            <div className="mt-8 pt-6 border-t border-[var(--border-subtle)]">
+              <span className="text-xs font-semibold text-[var(--text-muted)] flex items-center gap-1.5 mb-3 uppercase tracking-wider">
+                <Languages className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{locale === 'en' ? 'Language / 言語' : '言語切り替え'}</span>
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onToggleLocale('en');
+                    onClose();
+                  }}
+                  className={`flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    locale === 'en'
+                      ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/25 scale-[1.02]'
+                      : 'bg-white/5 text-[var(--text-secondary)] hover:bg-white/10 border border-[var(--border-subtle)]'
+                  }`}
+                >
+                  English
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onToggleLocale('ja');
+                    onClose();
+                  }}
+                  className={`flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    locale === 'ja'
+                      ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/25 scale-[1.02]'
+                      : 'bg-white/5 text-[var(--text-secondary)] hover:bg-white/10 border border-[var(--border-subtle)]'
+                  }`}
+                >
+                  日本語
+                </button>
+              </div>
+            </div>
+          )}
 
         </div>
       </nav>

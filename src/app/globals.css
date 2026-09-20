@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 :root {
   --bg-primary: #0e1426;
   --bg-secondary: #131b2f;
@@ -37,35 +39,45 @@
 }
 
 [data-theme='light'] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-card: rgba(255, 255, 255, 0.95);
-  --bg-card-hover: rgba(255, 255, 255, 0.99);
-  --bg-glass: rgba(241, 245, 249, 0.9);
+  --bg-primary: #faf8f5;
+  --bg-secondary: #f3f0e8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(250, 248, 245, 0.9);
   
-  --border-subtle: rgba(15, 23, 42, 0.12);
-  --border-accent: rgba(2, 132, 199, 0.5);
-  --border-glow: rgba(79, 70, 229, 0.4);
+  --border-subtle: rgba(44, 34, 20, 0.12);
+  --border-accent: rgba(2, 132, 199, 0.55);
+  --border-glow: rgba(79, 70, 229, 0.35);
 
-  --surface-subtle: rgba(15, 23, 42, 0.05);
-  --surface-subtle-hover: rgba(15, 23, 42, 0.08);
-  --bg-header: rgba(248, 250, 252, 0.75);
-  --bg-header-fallback: rgba(248, 250, 252, 0.65);
+  --surface-subtle: rgba(44, 34, 20, 0.05);
+  --surface-subtle-hover: rgba(44, 34, 20, 0.08);
+  --bg-header: rgba(250, 248, 245, 0.85);
+  --bg-header-fallback: rgba(250, 248, 245, 0.95);
   
   --text-primary: #0f172a;
-  --text-secondary: #1e293b;
-  --text-muted: #475569;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
   --text-accent: #0284c7;
   
   --accent-cyan: #0284c7;
   --accent-indigo: #4f46e5;
-  --accent-emerald: #059669;
-  --accent-amber: #d97706;
-  --accent-rose: #e11d48;
+  --accent-emerald: #047857;
+  --accent-amber: #b45309;
+  --accent-rose: #be123c;
   
-  --timeline-line: linear-gradient(180deg, #0284c7 0%, #6366f1 50%, #059669 100%);
-  --glow-cyan: 0 10px 30px -10px rgba(2, 132, 199, 0.3);
-  --glow-indigo: 0 10px 30px -10px rgba(79, 70, 229, 0.3);
+  /* Map Tailwind v4 color variables to high-contrast dark tones in bright mode */
+  --color-cyan-200: #1e1b4b;
+  --color-cyan-300: #312e81;
+  --color-cyan-400: #0284c7;
+  --color-emerald-300: #064e3b;
+  --color-emerald-400: #047857;
+  --color-amber-300: #78350f;
+  --color-amber-400: #b45309;
+  --color-indigo-300: #312e81;
+  
+  --timeline-line: linear-gradient(180deg, #0284c7 0%, #6366f1 50%, #047857 100%);
+  --glow-cyan: 0 10px 30px -10px rgba(2, 132, 199, 0.25);
+  --glow-indigo: 0 10px 30px -10px rgba(79, 70, 229, 0.25);
   --focus-ring: #0284c7;
 }
 
@@ -73,13 +85,13 @@
 [data-theme='light'] .glass-panel {
   background: var(--bg-card);
   border-color: var(--border-subtle);
-  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px -4px rgba(44, 34, 20, 0.07);
 }
 
 [data-theme='light'] .glass-panel:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-accent);
-  box-shadow: 0 8px 30px -8px rgba(2, 132, 199, 0.2), 0 4px 16px -4px rgba(79, 70, 229, 0.15);
+  box-shadow: 0 8px 30px -8px rgba(2, 132, 199, 0.16), 0 4px 16px -4px rgba(79, 70, 229, 0.1);
 }
 
 [data-theme='light'] .glass-panel::before {
@@ -108,58 +120,46 @@
   color: var(--accent-cyan);
 }
 
-[data-theme='light'] .ambient-bg {
-  background: 
-    radial-gradient(circle at 15% 15%, rgba(2, 132, 199, 0.08) 0%, transparent 46%),
-    radial-gradient(circle at 85% 30%, rgba(79, 70, 229, 0.07) 0%, transparent 52%),
-    radial-gradient(circle at 50% 85%, rgba(5, 150, 105, 0.05) 0%, transparent 56%),
-    radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.04) 0%, transparent 62%);
-  filter: blur(0.5px);
+/* Light mode high-contrast text safeguards */
+[data-theme='light'] .metric-title {
+  color: #0f172a !important;
 }
 
-[data-theme='light'] .grid-pattern {
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+[data-theme='light'] .metric-box {
+  background-color: #f4f2ea !important;
+  border-color: #e2ded2 !important;
 }
 
-[data-theme='light'] .timeline-spine {
-  box-shadow: 0 0 14px rgba(2, 132, 199, 0.3), 0 0 28px rgba(79, 70, 229, 0.15);
+[data-theme='light'] .metric-desc {
+  color: #334155 !important;
 }
 
-[data-theme='light'] .timeline-gap-mask-top,
-[data-theme='light'] .timeline-gap-mask-bottom {
-  background: var(--bg-secondary);
+[data-theme='light'] .text-emerald-300 {
+  color: #064e3b !important;
 }
 
-[data-theme='light'] .terminal-block {
-  background: #f1f5f9;
-  border-color: rgba(15, 23, 42, 0.15);
-  color: #0284c7;
+[data-theme='light'] .text-emerald-400 {
+  color: #047857 !important;
 }
 
-[data-theme='light'] .timeline-card {
-  background: var(--bg-secondary);
+[data-theme='light'] .text-amber-300 {
+  color: #78350f !important;
 }
 
-[data-theme='light'] .timeline-card:hover {
-  background: var(--bg-secondary);
+[data-theme='light'] .text-amber-400 {
+  color: #b45309 !important;
 }
 
-[data-theme='light'] .timeline-gap-mask-top,
-[data-theme='light'] .timeline-gap-mask-bottom {
-  background: var(--bg-secondary);
+[data-theme='light'] .text-cyan-200 {
+  color: #1e1b4b !important;
 }
 
-[data-theme='light'] .timeline-gap-mask-top,
-[data-theme='light'] .timeline-gap-mask-bottom {
-  background: var(--bg-secondary);
+[data-theme='light'] .text-cyan-300 {
+  color: #312e81 !important;
 }
 
-[data-theme='light'] .terminal-block {
-  background: #f1f5f9;
-  border-color: rgba(15, 23, 42, 0.15);
-  color: #0284c7;
+[data-theme='light'] .text-indigo-300 {
+  color: #312e81 !important;
 }
 
 [data-theme='light'] .ambient-bg {
@@ -181,11 +181,6 @@
   box-shadow: 0 0 14px rgba(2, 132, 199, 0.3), 0 0 28px rgba(79, 70, 229, 0.15);
 }
 
-[data-theme='light'] .timeline-gap-mask-top,
-[data-theme='light'] .timeline-gap-mask-bottom {
-  background: var(--bg-secondary);
-}
-
 [data-theme='light'] .terminal-block {
   background: #f1f5f9;
   border-color: rgba(15, 23, 42, 0.15);
@@ -193,16 +188,7 @@
 }
 
 [data-theme='light'] .timeline-card {
-  background: var(--bg-secondary);
-}
-
-[data-theme='light'] .timeline-card:hover {
-  background: var(--bg-secondary);
-}
-
-[data-theme='light'] .timeline-gap-mask-top,
-[data-theme='light'] .timeline-gap-mask-bottom {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
 }
 
 /* Light mode status pill */
@@ -344,6 +330,321 @@
 
 [data-theme='light'] .timeline-card .group-hover\:text-cyan-300:hover {
   color: #0284c7 !important;
+}
+
+/* ===== Light Mode Spec / Rule Modal Overrides ===== */
+[data-theme='light'] .skill-spec-modal {
+  background-color: #fcfbf9 !important;
+  color: #1e293b !important;
+  border-color: rgba(44, 34, 20, 0.18) !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+}
+
+/* Modal Header & Footer */
+[data-theme='light'] .skill-spec-modal > div:first-child,
+[data-theme='light'] .skill-spec-modal > div:last-child {
+  background-color: #f7f5f0 !important;
+  border-color: rgba(44, 34, 20, 0.12) !important;
+}
+
+/* Modal Title & Headers */
+[data-theme='light'] .skill-spec-modal h2,
+[data-theme='light'] .skill-spec-modal h3,
+[data-theme='light'] .skill-spec-modal h4 {
+  color: #0f172a !important;
+}
+
+/* Subtitles, paragraphs and general copy */
+[data-theme='light'] .skill-spec-modal p,
+[data-theme='light'] .skill-spec-modal span:not([class*="bg-"]):not([class*="text-amber-"]):not([class*="text-emerald-"]):not([class*="text-cyan-"]):not([class*="text-indigo-"]) {
+  color: #334155;
+}
+
+[data-theme='light'] .skill-spec-modal .text-slate-200,
+[data-theme='light'] .skill-spec-modal .text-slate-300,
+[data-theme='light'] .skill-spec-modal .text-slate-400 {
+  color: #334155 !important;
+}
+
+/* Toolbar & Filter Bar */
+[data-theme='light'] .skill-spec-modal > div:nth-child(2) {
+  background-color: #f1eee6 !important;
+  border-color: rgba(44, 34, 20, 0.12) !important;
+}
+
+[data-theme='light'] .skill-spec-modal div.bg-slate-900 {
+  background-color: #e9e5dc !important;
+  border-color: rgba(44, 34, 20, 0.15) !important;
+}
+
+/* Scrollable Body */
+[data-theme='light'] .skill-spec-modal .overflow-y-auto {
+  background-color: #fcfbf9 !important;
+}
+
+/* Cards & Section Boxes inside modal */
+[data-theme='light'] .skill-spec-modal .bg-slate-900\/80,
+[data-theme='light'] .skill-spec-modal .bg-slate-900\/90,
+[data-theme='light'] .skill-spec-modal .bg-slate-800\/80,
+[data-theme='light'] .skill-spec-modal .bg-slate-800 {
+  background-color: #f4f1ea !important;
+  border-color: rgba(44, 34, 20, 0.14) !important;
+}
+
+/* Top Banner Box */
+[data-theme='light'] .skill-spec-modal .bg-amber-500\/10 {
+  background-color: #fef7ea !important;
+  border-color: rgba(217, 119, 6, 0.3) !important;
+}
+
+[data-theme='light'] .skill-spec-modal .bg-emerald-500\/10 {
+  background-color: #ecfdf5 !important;
+  border-color: rgba(5, 150, 105, 0.3) !important;
+}
+
+[data-theme='light'] .skill-spec-modal .bg-rose-500\/10 {
+  background-color: #fff1f2 !important;
+  border-color: rgba(225, 29, 72, 0.3) !important;
+}
+
+/* Code Pre Blocks - Keep them sleek, high-contrast, clean */
+[data-theme='light'] .skill-spec-modal .bg-\[\#060a12\],
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+[data-theme='light'] .skill-spec-modal .bg-\[\#060a12\] code,
+[data-theme='light'] .skill-spec-modal .bg-\[\#060a12\] pre,
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] span {
+  color: #f8fafc !important;
+}
+
+/* Inline Code Badges */
+[data-theme='light'] .skill-spec-modal code:not(pre code) {
+  background-color: #ece8df !important;
+  color: #0f172a !important;
+  border-color: rgba(44, 34, 20, 0.2) !important;
+}
+
+/* Action & Navigation Buttons inside modal */
+[data-theme='light'] .skill-spec-modal button.bg-slate-800\/80,
+[data-theme='light'] .skill-spec-modal button.bg-slate-800\/90,
+[data-theme='light'] .skill-spec-modal button.bg-slate-800 {
+  background-color: #e5e0d4 !important;
+  color: #0f172a !important;
+  border-color: rgba(44, 34, 20, 0.18) !important;
+}
+
+[data-theme='light'] .skill-spec-modal button.bg-slate-800\/80:hover,
+[data-theme='light'] .skill-spec-modal button.bg-slate-800\/90:hover,
+[data-theme='light'] .skill-spec-modal button.bg-slate-800:hover {
+  background-color: #dbd5c7 !important;
+  color: #0f172a !important;
+}
+
+/* Modal Close (X) Button - High contrast, prominent across both dark and light modes */
+.skill-spec-modal .modal-close-btn {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.2s ease;
+}
+
+.skill-spec-modal .modal-close-btn:hover {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+  border-color: rgba(203, 213, 225, 0.5) !important;
+}
+
+.skill-spec-modal .modal-close-btn svg {
+  color: #f8fafc !important;
+  stroke: currentColor !important;
+  stroke-width: 2.5px !important;
+}
+
+[data-theme='light'] .skill-spec-modal .modal-close-btn {
+  background-color: #ede8de !important;
+  color: #0f172a !important;
+  border: 1.5px solid rgba(44, 34, 20, 0.28) !important;
+  box-shadow: 0 2px 5px rgba(44, 34, 20, 0.08) !important;
+}
+
+[data-theme='light'] .skill-spec-modal .modal-close-btn:hover {
+  background-color: #dfd9cd !important;
+  color: #000000 !important;
+  border-color: rgba(44, 34, 20, 0.45) !important;
+}
+
+[data-theme='light'] .skill-spec-modal .modal-close-btn svg {
+  color: #0f172a !important;
+  stroke: #0f172a !important;
+  stroke-width: 2.75px !important;
+}
+
+
+/* Download CTA buttons inside modals - High contrast & punchy across all modals */
+.skill-spec-modal .modal-download-btn,
+.skill-spec-modal a[download] {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 4px 14px -2px rgba(180, 83, 9, 0.45) !important;
+  border: 1px solid rgba(251, 191, 36, 0.35) !important;
+}
+
+.skill-spec-modal .modal-download-btn span,
+.skill-spec-modal a[download] span,
+.skill-spec-modal .modal-download-btn svg,
+.skill-spec-modal a[download] svg {
+  color: #ffffff !important;
+}
+
+.skill-spec-modal .modal-download-btn:hover,
+.skill-spec-modal a[download]:hover {
+  background: linear-gradient(135deg, #b45309 0%, #92400e 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px -2px rgba(180, 83, 9, 0.6) !important;
+}
+
+[data-theme='light'] .skill-spec-modal .modal-download-btn,
+[data-theme='light'] .skill-spec-modal a[download] {
+  background: linear-gradient(135deg, #b45309 0%, #92400e 100%) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 14px -2px rgba(146, 64, 14, 0.4) !important;
+  border: 1px solid rgba(146, 64, 14, 0.5) !important;
+}
+
+[data-theme='light'] .skill-spec-modal .modal-download-btn span,
+[data-theme='light'] .skill-spec-modal a[download] span,
+[data-theme='light'] .skill-spec-modal .modal-download-btn svg,
+[data-theme='light'] .skill-spec-modal a[download] svg {
+  color: #ffffff !important;
+}
+
+[data-theme='light'] .skill-spec-modal .modal-download-btn:hover,
+[data-theme='light'] .skill-spec-modal a[download]:hover {
+  background: linear-gradient(135deg, #92400e 0%, #78350f 100%) !important;
+  color: #ffffff !important;
+}
+
+/* Target path bar in footer */
+[data-theme='light'] .skill-spec-modal div.text-slate-400 code {
+  background-color: #ece8df !important;
+  color: #0369a1 !important;
+}
+
+/* ===== Extended Light Mode: Modal Body Background ===== */
+/* The deep navy bg-[#0b111e] modal body scrollable area */
+[data-theme='light'] .skill-spec-modal .bg-\[\#0b111e\] {
+  background-color: #fcfbf9 !important;
+}
+
+/* Toolbar strip bg-[#080d19]/90 (tab switcher) */
+[data-theme='light'] .skill-spec-modal .bg-\[\#080d19\]\/90,
+[data-theme='light'] .skill-spec-modal .bg-\[\#080d19\] {
+  background-color: #f1eee6 !important;
+  border-color: rgba(44, 34, 20, 0.12) !important;
+}
+
+/* Checklist & step items with bg-slate-800/60 — not covered by the /80 rule */
+[data-theme='light'] .skill-spec-modal .bg-slate-800\/60,
+[data-theme='light'] .skill-spec-modal .bg-slate-700\/60,
+[data-theme='light'] .skill-spec-modal .bg-slate-700\/80 {
+  background-color: #ede9e0 !important;
+  border-color: rgba(44, 34, 20, 0.14) !important;
+}
+
+/* Text inside those checklist items */
+[data-theme='light'] .skill-spec-modal .bg-slate-800\/60 span,
+[data-theme='light'] .skill-spec-modal .bg-slate-800\/60 p,
+[data-theme='light'] .skill-spec-modal .bg-slate-700\/60 span,
+[data-theme='light'] .skill-spec-modal .bg-slate-700\/60 p {
+  color: #1e293b !important;
+}
+
+/* Cyan/emerald info banner (bg-cyan-500/10) in preview tab */
+[data-theme='light'] .skill-spec-modal .bg-cyan-500\/10 {
+  background-color: #eff8ff !important;
+  border-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+/* Table row text — td.text-slate-200, td.text-slate-300 */
+[data-theme='light'] .skill-spec-modal td.text-slate-200,
+[data-theme='light'] .skill-spec-modal td.text-slate-300 {
+  color: #1e293b !important;
+}
+
+/* Table dividers */
+[data-theme='light'] .skill-spec-modal .divide-slate-800\/60 > * + * {
+  border-color: rgba(44, 34, 20, 0.12) !important;
+}
+
+/* Tab switcher buttons (inside the tab pill row) */
+[data-theme='light'] .skill-spec-modal button.text-slate-400 {
+  color: #475569 !important;
+}
+
+[data-theme='light'] .skill-spec-modal button.text-slate-400:hover {
+  color: #0f172a !important;
+}
+
+/* Snippet tab selector buttons bg-slate-900 border-slate-800 */
+[data-theme='light'] .skill-spec-modal button.bg-slate-900,
+[data-theme='light'] .skill-spec-modal .bg-slate-900.border-slate-800 {
+  background-color: #f0ece3 !important;
+  color: #475569 !important;
+  border-color: rgba(44, 34, 20, 0.15) !important;
+}
+
+/* Active tab highlight states */
+[data-theme='light'] .skill-spec-modal .bg-cyan-500\/20 {
+  background-color: #e0f2fe !important;
+  border-color: rgba(14, 165, 233, 0.35) !important;
+}
+[data-theme='light'] .skill-spec-modal .bg-emerald-500\/20 {
+  background-color: #d1fae5 !important;
+  border-color: rgba(5, 150, 105, 0.35) !important;
+}
+[data-theme='light'] .skill-spec-modal .bg-amber-500\/20 {
+  background-color: #fef3c7 !important;
+  border-color: rgba(217, 119, 6, 0.35) !important;
+}
+
+/* h4 step titles inside dark cards — override to dark text */
+[data-theme='light'] .skill-spec-modal h4.font-semibold.text-white {
+  color: #0f172a !important;
+}
+
+/* Step/pillar card white headings */
+[data-theme='light'] .skill-spec-modal .text-white {
+  color: #0f172a !important;
+}
+
+/* Code blocks inside CLI tab — keep intentionally dark for readability */
+[data-theme='light'] .skill-spec-modal .bg-\[\#060a12\] {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] {
+  background-color: #263045 !important;
+  border-color: #334155 !important;
+}
+[data-theme='light'] .skill-spec-modal .bg-\[\#060a12\] pre,
+[data-theme='light'] .skill-spec-modal .bg-\[\#060a12\] code,
+[data-theme='light'] .skill-spec-modal .bg-\[\#060a12\] p,
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] h4,
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] p,
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] span:not([class*="text-cyan"]):not([class*="text-emerald"]) {
+  color: #f1f5f9 !important;
+}
+
+/* Snippet description text inside dark code card header */
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] .text-slate-400,
+[data-theme='light'] .skill-spec-modal .bg-\[\#090e1a\] .text-xs.text-slate-400 {
+  color: #94a3b8 !important;
 }
 
 @layer base {
@@ -508,16 +809,13 @@ summary:focus-visible {
   font-weight: 600;
 }
 
-/* ===== Timeline Spine — centered through cards at every breakpoint =====
-   Hidden by default and drawn in only when the timeline container enters the
-   viewport (JS-gated via .is-visible), so on a mid-scroll refresh the line can
-   never paint before the cards. The 3s delay (on .is-visible only) holds the
-   line back well after the cards have appeared. The base rule keeps a
-   delay-free transition so hiding (e.g. empty filter) is immediate — CSS takes
-   the transition property from the destination state. */
+/* ===== Timeline Spine — Responsive Left-Rail on mobile, Centered on desktop =====
+   On mobile (<lg), the spine sits on the left rail (left: 1.25rem; sm:left: 1.75rem)
+   aligned with node markers, running continuously alongside cards without interruption.
+   On desktop (>=lg), it centers at 50% between alternating two-column cards. */
 .timeline-spine {
   position: absolute;
-  left: 50%;
+  left: 1.25rem;
   transform: translateX(-50%) scaleY(0);
   transform-origin: top;
   top: 0;
@@ -531,6 +829,12 @@ summary:focus-visible {
     transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@media (min-width: 640px) {
+  .timeline-spine {
+    left: 1.75rem;
+  }
+}
+
 .timeline-spine.is-visible {
   opacity: 0.95;
   transform: translateX(-50%) scaleY(1);
@@ -540,20 +844,11 @@ summary:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Keep the spine JS-gated (.is-visible) even with motion reduced — forcing it
-     visible here would let it paint before the cards on a mid-scroll refresh.
-     transition:none on both states just makes the reveal instant once gated in
-     (and opts out of the 3s hold, matching reduced-motion expectations). */
   .timeline-spine,
   .timeline-spine.is-visible {
     transition: none;
   }
 
-  /* Cards must be fully visible at first paint under reduced motion: without
-     this, the staggered article entrance (reveal-up both) holds them at
-     opacity 0 while the gated spine appears — line-before-cards again.
-     article prefix bumps specificity so the later .timeline-item-enter
-     rule (line ~775) can't override this back on. */
   article.timeline-item-enter {
     animation: none;
   }
@@ -561,47 +856,8 @@ summary:focus-visible {
 
 @media (min-width: 1024px) {
   .timeline-spine {
+    left: 50%;
     box-shadow: 0 0 16px rgba(56, 189, 248, 0.4), 0 0 32px rgba(129, 140, 248, 0.2);
-  }
-}
-
-/* On stacked (<lg) layouts the spine must be invisible where it passes behind cards.
-   Cards get an opaque plate so the line only shows in the gaps between them, where the
-   connector dots sit. Desktop untouched: its two-column layout never overlaps the spine. */
-@media (max-width: 1023.98px) {
-  .timeline-card {
-    background: var(--bg-secondary);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
-  /* The last card has no gap after it — hide its dangling connector dot */
-  article:last-of-type .timeline-node-anchor {
-    display: none;
-  }
-
-  /* Gap masks — hide spine in adjacent gaps when a card is hovered.
-     Masks are sized to the gap (2rem base, 2.5rem at sm) and centered in the gap. */
-  .timeline-gap-mask-top,
-  .timeline-gap-mask-bottom {
-    background: var(--bg-secondary);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  /* Show gap mask below when this card is hovered */
-  article.group:hover .timeline-gap-mask-bottom {
-    opacity: 1;
-  }
-
-  /* Show gap mask above when the PREVIOUS card is hovered (via sibling selector) */
-  article.group:hover + article .timeline-gap-mask-top {
-    opacity: 1;
-  }
-
-  /* Keep timeline cards fully opaque on hover so spine stays hidden behind them */
-  .timeline-card:hover {
-    background: var(--bg-secondary) !important;
   }
 }
 

@@ -11,9 +11,21 @@ interface TimelineItemProps {
   locale: Locale;
   selectedTech: string | null;
   onSelectTech: (tech: string) => void;
+  prevMilestoneId?: string;
+  nextMilestoneId?: string;
+  isFirst?: boolean;
+  isLast?: boolean;
 }
 
-export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }: TimelineItemProps) {
+export function TimelineItem({
+  item,
+  index,
+  locale,
+  selectedTech,
+  onSelectTech,
+  prevMilestoneId,
+  nextMilestoneId,
+}: TimelineItemProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const { ref, isVisible } = useInView({ threshold: 0.1 });
   const { ref: nodeRef, isVisible: nodeVisible } = useInView({ threshold: 0.5 });
@@ -21,47 +33,107 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
   const isCurrent = item.period.end === 'Present' || item.period.end === '現在';
 
   const categoryGradients: Record<string, string> = {
-    'AI & Automation': 'from-emerald-400 to-cyan-500 border-emerald-500/40 text-emerald-400',
-    'Performance & DevOps': 'from-amber-400 to-orange-500 border-amber-500/40 text-amber-400',
-    Frontend: 'from-cyan-400 to-blue-500 border-cyan-500/40 text-cyan-400',
-    'Full-Stack': 'from-indigo-400 to-purple-500 border-indigo-500/40 text-indigo-400',
-    Mobile: 'from-rose-400 to-pink-500 border-rose-500/40 text-rose-400',
+    'AI & Automation': 'border-emerald-600/30 bg-emerald-50 text-emerald-950 dark:text-indigo-300 dark:bg-emerald-500/10 dark:border-emerald-500/40',
+    'Performance & DevOps': 'border-amber-600/30 bg-amber-50 text-amber-950 dark:text-amber-300 dark:bg-amber-500/10 dark:border-amber-500/40',
+    Frontend: 'border-cyan-600/30 bg-cyan-50 text-cyan-950 dark:text-indigo-300 dark:bg-cyan-500/10 dark:border-cyan-500/40',
+    'Full-Stack': 'border-indigo-600/30 bg-indigo-50 text-indigo-950 dark:text-indigo-300 dark:bg-indigo-500/10 dark:border-indigo-500/40',
+    Mobile: 'border-rose-600/30 bg-rose-50 text-rose-950 dark:text-rose-300 dark:bg-rose-500/10 dark:border-rose-500/40',
   };
 
-  const badgeStyle = categoryGradients[item.category] || 'from-cyan-400 to-indigo-500 text-cyan-400 border-cyan-500/40';
+  const badgeStyle = categoryGradients[item.category] || 'border-cyan-600/30 bg-cyan-50 text-cyan-950 dark:text-indigo-300 dark:border-cyan-500/40';
+
+  const prevTargetId = prevMilestoneId ? `milestone-${prevMilestoneId}` : 'timeline';
+  const nextTargetId = nextMilestoneId ? `milestone-${nextMilestoneId}` : 'agentic';
+
+  const prevTitle = prevMilestoneId
+    ? (locale === 'en' ? 'Previous milestone' : '前の経歴へ')
+    : (locale === 'en' ? 'Scroll up to Timeline Overview' : '経歴トップへ');
+
+  const nextTitle = nextMilestoneId
+    ? (locale === 'en' ? 'Next milestone' : '次の経歴へ')
+    : (locale === 'en' ? 'Next section: AI & Agentic' : '次のセクション: AI開発');
 
   return (
     <article
+      id={`milestone-${item.id}`}
       ref={ref}
-      className={`relative mb-16 sm:mb-20 lg:mb-24 last:mb-0 group timeline-item-enter`}
+      className={`relative mb-16 sm:mb-20 lg:mb-24 last:mb-0 group timeline-item-enter scroll-mt-28`}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
-      {/* Node Marker — <lg: centered in the gap below its card (equidistant from both cards);
-          lg: pinned to the vertical center of its card (empty center channel, no overlap) */}
+      {/* Symmetrical horizontal connector arm on mobile/tablet */}
       <div
-        ref={nodeRef}
-        className="timeline-node-anchor absolute left-1/2 top-[calc(100%+1.125rem)] -translate-x-1/2 pointer-events-none sm:top-[calc(100%+1.625rem)] lg:top-1/2 lg:-translate-y-1/2"
+        className="lg:hidden absolute left-5 sm:left-7 top-[38px] w-6 sm:w-8 h-[2px] bg-gradient-to-r from-cyan-400 via-indigo-400/80 to-transparent pointer-events-none -translate-y-1/2 z-0"
+        aria-hidden="true"
+      />
+
+      {/* Symmetrical horizontal connector arm on desktop */}
+      <div
+        className={`hidden lg:block absolute top-[50px] h-[2px] pointer-events-none -translate-y-1/2 z-0 ${
+          index % 2 === 0
+            ? 'left-1/2 w-10 bg-gradient-to-r from-cyan-400 to-indigo-500/40'
+            : 'right-1/2 w-10 bg-gradient-to-l from-cyan-400 to-indigo-500/40'
+        }`}
+        aria-hidden="true"
+      />
+
+      {/* Interactive Milestone Stepper Cluster: Up Arrow + Center Node + Down Arrow */}
+      <div
+        className="absolute left-5 sm:left-7 top-[38px] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1.5 lg:left-1/2 lg:top-[50px]"
+        role="navigation"
+        aria-label={`Milestone navigation for ${item.role}`}
       >
-        <div className={`w-7 h-7 rounded-full bg-[var(--bg-primary)] border-2 ${isCurrent ? 'border-cyan-400 shadow-lg shadow-cyan-400/50' : 'border-indigo-400/60'} flex items-center justify-center group-hover:scale-125 transition-transform timeline-node-pop ${nodeVisible ? 'is-visible' : ''}`}>
+        {/* Up Arrow — navigates to previous milestone or section top */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            const targetEl = document.getElementById(prevTargetId);
+            targetEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+          className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white dark:bg-[#0e1426] border border-slate-300 dark:border-white/20 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-200 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 flex items-center justify-center transition-all hover:scale-115 active:scale-90 shadow-sm cursor-pointer"
+          title={prevTitle}
+          aria-label={prevTitle}
+        >
+          <ChevronUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+        </button>
+
+        {/* Center Milestone Node Indicator */}
+        <div
+          ref={nodeRef}
+          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[var(--bg-primary)] border-2 ${
+            isCurrent ? 'border-cyan-400 shadow-lg shadow-cyan-400/50' : 'border-indigo-400/60'
+          } flex items-center justify-center transition-all timeline-node-pop ${nodeVisible ? 'is-visible' : ''}`}
+          title={`${item.period.start}: ${item.role}`}
+        >
           {isCurrent ? (
             <div className="timeline-node-current" />
           ) : (
             <div className="timeline-node-static" />
           )}
         </div>
+
+        {/* Down Arrow — navigates to next milestone or next section */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            const targetEl = document.getElementById(nextTargetId);
+            targetEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+          className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white dark:bg-[#0e1426] border border-slate-300 dark:border-white/20 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-200 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 flex items-center justify-center transition-all hover:scale-115 active:scale-90 shadow-sm cursor-pointer"
+          title={nextTitle}
+          aria-label={nextTitle}
+        >
+          <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+        </button>
       </div>
 
-      {/* Gap mask below this card — hides spine in the gap when this card is hovered */}
-      <div className="timeline-gap-mask-bottom absolute left-1/2 right-1/2 -translate-x-1/2 top-[calc(100%+2rem)] h-[2rem] pointer-events-none sm:h-[2.5rem] lg:hidden" />
-      {/* Gap mask above this card — hides spine in the gap above when the PREVIOUS card is hovered */}
-      <div className="timeline-gap-mask-top absolute left-1/2 right-1/2 -translate-x-1/2 bottom-[calc(100%+2rem)] h-[2rem] pointer-events-none sm:h-[2.5rem] lg:hidden" />
-
-      {/* Grid container — single column below lg so tablets get the readable stacked layout */}
-      <div className={`lg:grid lg:grid-cols-2 lg:gap-20 items-start ${index % 2 === 0 ? '' : 'lg:grid-flow-dense'}`}>
+      {/* Grid container — offset right on mobile/tablet to leave continuous rail clear; 2-col on desktop */}
+      <div className={`pl-10 sm:pl-14 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-20 items-start ${index % 2 === 0 ? '' : 'lg:grid-flow-dense'}`}>
         {/* Date / Category pill for opposite column on desktop */}
         <div className={`hidden lg:flex flex-col justify-center pt-8 ${index % 2 === 0 ? 'text-right pr-10 items-end' : 'lg:col-start-2 pl-10 items-start'}`}>
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-[var(--border-subtle)] text-xs font-mono-custom text-[var(--text-secondary)] w-fit shadow-sm">
-            <Calendar className="w-4 h-4 text-cyan-400" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-[var(--border-subtle)] text-xs font-mono-custom text-slate-800 dark:text-[var(--text-secondary)] font-medium w-fit shadow-sm">
+            <Calendar className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
             <span>
               {item.period.start} ~ {item.period.end}
             </span>
@@ -71,13 +143,13 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
           </span>
         </div>
 
-        {/* The Main Card — phone p-6, tablet p-8, desktop p-10; opaque on stacked layouts so the spine stays hidden behind it */}
+        {/* The Main Card */}
         <div className={`glass-panel timeline-card p-6 sm:p-8 lg:p-10 relative ${index % 2 === 0 ? 'lg:col-start-2' : 'lg:col-start-1'} ${isVisible ? 'scroll-reveal is-visible' : 'scroll-reveal'}`} style={{ animationDelay: `${0.15 + index * 0.1}s` }}>
           {/* Card Header — stacks vertically on phone, row from sm+ */}
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-5 mb-6">
             <div className="space-y-1 min-w-0 w-full sm:w-auto sm:flex-1">
-              <div className="lg:hidden inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-[var(--border-subtle)] text-xs font-mono-custom text-[var(--text-secondary)] mb-4">
-                <Calendar className="w-4 h-4 text-cyan-400 shrink-0" />
+              <div className="lg:hidden inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-[var(--border-subtle)] text-xs font-mono-custom text-slate-800 dark:text-[var(--text-secondary)] font-medium mb-4">
+                <Calendar className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                 <span className="whitespace-nowrap">
                   {item.period.start} ~ {item.period.end}
                 </span>
@@ -91,7 +163,7 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
               </div>
             </div>
 
-            <span className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold border bg-white/5 leading-none shrink-0 ${badgeStyle}`}>
+            <span className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold border leading-none shrink-0 ${badgeStyle}`}>
               {item.category}
             </span>
           </div>
@@ -104,7 +176,7 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
             </div>
             {item.teamSize && (
               <div className="flex items-center gap-2.5">
-                <Users className="w-[18px] h-[18px] text-cyan-400 shrink-0" />
+                <Users className="w-[18px] h-[18px] text-cyan-600 dark:text-cyan-400 shrink-0" />
                 <span className="leading-none">{item.teamSize}</span>
               </div>
             )}
@@ -117,13 +189,13 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
 
           {/* Impact Metrics — stacked on phone, 2-col from sm+ */}
           {item.metrics && item.metrics.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-7 lg:mb-8 p-4 sm:p-5 rounded-xl bg-cyan-950/20 border border-cyan-500/20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-7 lg:mb-8 p-4 sm:p-5 rounded-xl bg-[#f4f2ea] border border-[#e2ded2] dark:bg-cyan-950/20 dark:border-cyan-500/20 shadow-sm metric-box">
               {item.metrics.map((m, mIdx) => (
                 <div key={mIdx} className="flex items-start gap-3">
-                  <TrendingUp className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <TrendingUp className="w-5 h-5 text-indigo-700 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <div className="space-y-1">
-                    <div className="text-sm font-bold text-cyan-200 leading-tight">{m.label}: {m.value}</div>
-                    {m.description && <div className="text-xs text-[var(--text-secondary)] leading-relaxed opacity-90">{m.description}</div>}
+                    <div className="text-sm font-bold text-[#0f172a] dark:text-indigo-300 leading-tight metric-title">{m.label}: {m.value}</div>
+                    {m.description && <div className="text-xs text-slate-700 dark:text-[var(--text-secondary)] leading-relaxed metric-desc">{m.description}</div>}
                   </div>
                 </div>
               ))}
@@ -145,7 +217,7 @@ export function TimelineItem({ item, index, locale, selectedTech, onSelectTech }
                 <ul className="space-y-4 mt-4">
                   {item.highlights.map((h, hIdx) => (
                     <li key={hIdx} className="flex items-start gap-3 text-sm text-[var(--text-secondary)] leading-relaxed sm:gap-3.5 sm:text-[15px]">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </li>
                   ))}

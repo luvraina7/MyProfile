@@ -27,7 +27,7 @@ export function Footer({ locale }: FooterProps) {
   ];
 
   return (
-    <footer ref={ref} className="border-t border-[var(--border-subtle)] bg-[var(--bg-secondary)]/70 backdrop-blur-md pt-16 pb-24">
+    <footer id="footer" ref={ref} className="border-t border-[var(--border-subtle)] bg-[var(--bg-secondary)]/70 backdrop-blur-md pt-16 pb-24">
       <div className="max-w-5xl mx-auto px-6 sm:px-8">
         {/* "How This Site Was Built" Colophon */}
         <div className={`glass-panel p-6 sm:p-8 mb-12 scroll-reveal ${isVisible ? 'is-visible' : ''}`}>
