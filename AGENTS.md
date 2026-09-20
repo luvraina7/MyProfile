@@ -7,3 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Project Architecture & Standards
+For repository architecture, tech stack details, design tokens, directory layouts, and data schemas, consult:
+- [ARCHITECTURE.md](file:///Users/user/.gemini/antigravity-ide/scratch/career-timeline-portfolio/ARCHITECTURE.md)

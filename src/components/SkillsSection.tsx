@@ -22,7 +22,7 @@ export function SkillsSection({ skills, locale }: SkillsSectionProps) {
           ref={headerRef}
           className={`text-center max-w-3xl mx-auto mb-16 scroll-reveal ${headerVisible ? 'is-visible' : ''}`}
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-indigo-900 dark:text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
             <Code2 className="w-4 h-4" />
             <span>{locale === 'en' ? 'Core Competencies' : '保有スキル・技術スタック'}</span>
           </div>
@@ -47,7 +47,7 @@ export function SkillsSection({ skills, locale }: SkillsSectionProps) {
               className={`glass-panel p-6 sm:p-7 lg:p-8 flex flex-col justify-between scroll-reveal ${gridVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
             >
               <div>
-                <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-300 mb-6 pb-3 border-b border-[var(--border-subtle)]">
+                <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-800 to-cyan-800 dark:from-cyan-400 dark:to-indigo-300 mb-6 pb-3 border-b border-[var(--border-subtle)]">
                   {group.category}
                 </h3>
                 <ul className="space-y-5">
@@ -55,7 +55,7 @@ export function SkillsSection({ skills, locale }: SkillsSectionProps) {
                     <li key={sIdx}>
                       <div className="flex items-center justify-between text-xs sm:text-sm mb-1.5">
                         <div className="flex items-center gap-2.5 text-[var(--text-primary)] font-medium">
-                          <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                           <span>{skill.name}</span>
                         </div>
                         <div className="flex items-center gap-2.5">
@@ -64,7 +64,7 @@ export function SkillsSection({ skills, locale }: SkillsSectionProps) {
                               {skill.years} {locale === 'en' ? 'yrs' : '年'}
                             </span>
                           )}
-                          <span className="px-2.5 py-1 rounded-md bg-white/5 border border-[var(--border-subtle)] text-xs font-semibold text-cyan-300">
+                          <span className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-[var(--border-subtle)] text-xs font-semibold text-slate-800 dark:text-indigo-300">
                             {skill.level}
                           </span>
                         </div>

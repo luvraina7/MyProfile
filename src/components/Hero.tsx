@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { ProfileData, Locale } from '@/types/career';
-import { MapPin, Sparkles, ArrowDown, Mail, Download, ChevronDown, FileText } from 'lucide-react';
+import { ArrowDown, Mail, Download, ChevronDown, FileText } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { useInView } from '@/hooks/useInView';
 import { useCountUp } from '@/hooks/useCountUp';
@@ -83,11 +83,6 @@ export function Hero({ data, locale }: HeroProps) {
         ref={heroRef}
         className="w-full max-w-5xl mx-auto px-6 sm:px-8 relative z-10"
       >
-        {/* Status Pill — light mode optimized */}
-        <div className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full status-pill scroll-reveal ${heroVisible ? 'is-visible' : ''}`}>
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
-          <span>{locale === 'en' ? 'Open to New Opportunities in Tokyo / Remote' : '東京 / リモートでの新たな挑戦を歓迎'}</span>
-        </div>
 
         {/* Heading & Subtitles — more dramatic */}
         <div className={`space-y-6 max-w-3xl scroll-reveal ${heroVisible ? 'is-visible' : ''} stagger-2`}>
@@ -97,6 +92,11 @@ export function Hero({ data, locale }: HeroProps) {
           <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-emerald-400 leading-snug drop-shadow-sm">
             {data.title}
           </p>
+          {/* Status Pill — below title */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full status-pill">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
+            <span className="text-sm">{locale === 'en' ? 'Based in Tokyo, Japan' : '拠点：日本・東京'}</span>
+          </div>
           <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
             {data.tagline}
           </p>
@@ -156,26 +156,17 @@ export function Hero({ data, locale }: HeroProps) {
 
         </div>
 
-        {/* Quick Meta (Location / Experience / Socials) */}
-        <div className={`flex flex-wrap items-center gap-6 mt-6 text-sm text-[var(--text-secondary)] scroll-reveal ${heroVisible ? 'is-visible' : ''} stagger-4`}>
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-rose-400 shrink-0" />
-            <span className="font-medium">{data.location}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-            <span className="font-medium">{data.yearsOfExperience}</span>
-          </div>
-          <div className="flex items-center gap-3 sm:ml-auto">
-            <a
-              href="https://github.com/luvraina7"
-              target="_blank"
-              rel="noreferrer"
-              className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white transition-all hover:scale-105 border border-[var(--border-subtle)]"
-              aria-label="GitHub"
-            >
-              <GithubIcon className="w-4 h-4" />
-            </a>
+        {/* Social Links */}
+        <div className={`flex items-center gap-3 mt-6 text-sm text-[var(--text-secondary)] scroll-reveal ${heroVisible ? 'is-visible' : ''} stagger-4`}>
+          <a
+            href="https://github.com/luvraina7"
+            target="_blank"
+            rel="noreferrer"
+            className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white transition-all hover:scale-105 border border-[var(--border-subtle)]"
+            aria-label="GitHub"
+          >
+            <GithubIcon className="w-4 h-4" />
+          </a>
             <a
               href="https://www.linkedin.com/in/luv-raina-011a5a103/"
               target="_blank"
@@ -193,7 +184,6 @@ export function Hero({ data, locale }: HeroProps) {
               <Mail className="w-4 h-4" />
             </a>
           </div>
-        </div>
 
         {/* Metrics Grid with Count-Up Animation */}
         <div
@@ -206,7 +196,7 @@ export function Hero({ data, locale }: HeroProps) {
               className={`glass-panel p-6 flex flex-col justify-between min-h-[140px] scroll-reveal ${metricsVisible ? 'is-visible' : ''} stagger-${idx + 1}`}
             >
               <div>
-                <span className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-cyan-300 to-indigo-300">
+                <span className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-cyan-700 via-indigo-600 to-emerald-700 dark:from-cyan-300 dark:to-indigo-300">
                   <CountUpMetric value={metric.value} isVisible={metricsVisible} />
                 </span>
                 <div className="text-sm font-bold text-[var(--text-primary)] mt-2">

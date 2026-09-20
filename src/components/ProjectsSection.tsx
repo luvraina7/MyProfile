@@ -98,7 +98,7 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
           ref={headerRef}
           className={`text-center max-w-3xl mx-auto mb-16 scroll-reveal ${headerVisible ? 'is-visible' : ''}`}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
             <FolderOpen className="w-4 h-4" />
             <span>{content.badge}</span>
           </div>
@@ -127,7 +127,7 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
                     <div className={`p-3.5 rounded-2xl bg-white/5 border border-[var(--border-subtle)] ${project.iconColor} group-hover:scale-110 transition-transform shadow-inner`}>
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono font-semibold">
+                    <span className="px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-mono font-semibold">
                       {project.impact}
                     </span>
                   </div>

@@ -194,7 +194,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
   );
 
   const [activeTab, setActiveTab] = useState<'preview' | 'fixes' | 'raw'>('preview');
-  const [langFilter, setLangFilter] = useState<'all' | 'ja' | 'en'>(
+  const [langFilter, setLangFilter] = useState<'ja' | 'en'>(
     locale === 'ja' ? 'ja' : 'en'
   );
   const [selectedFixKey, setSelectedFixKey] = useState<string>('fix6');
@@ -207,21 +207,35 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
 
   useEffect(() => {
     if (isOpen) {
+      // Scroll freeze: lock body at current scroll offset
+      const scrollY = window.scrollY;
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
 
-      if (!rawMarkdown) {
-        fetch(downloadUrl)
-          .then((res) => res.text())
-          .then((text) => setRawMarkdown(text))
-          .catch((err) => console.error('Failed to load rule file:', err));
-      }
-    } else {
-      document.body.style.overflow = '';
+      return () => {
+        const top = document.body.style.top;
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        if (top) {
+          window.scrollTo(0, parseInt(top || '0', 10) * -1);
+        }
+      };
     }
+  }, [isOpen]);
 
-    return () => {
-      document.body.style.overflow = '';
-    };
+  useEffect(() => {
+    if (isOpen && !rawMarkdown) {
+      fetch(downloadUrl)
+        .then((res) => res.text())
+        .then((text) => setRawMarkdown(text))
+        .catch((err) => console.error('Failed to load rule file:', err));
+    }
   }, [isOpen, rawMarkdown, downloadUrl]);
 
   useEffect(() => {
@@ -263,7 +277,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
       aria-modal="true"
       aria-labelledby="rule-modal-title"
     >
-      <div className="w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-emerald-500/35 bg-[#0b111e] text-slate-100">
+      <div className="skill-spec-modal w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-emerald-500/35 bg-[#0b111e] text-slate-100">
         {/* Modal Header */}
         <div className="p-4 sm:p-5 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 bg-[#070b14]/95">
           <div className="flex items-center gap-3 min-w-0">
@@ -286,7 +300,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                 </span>
               </div>
               <p className="text-xs text-slate-300 truncate">
-                {locale === 'en'
+                {langFilter === 'en'
                   ? 'Autonomous CSS/SCSS layout auditor preventing text overflow and container blowout'
                   : 'テキストはみ出し・コンテナ破壊・CTA崩れを未然に防ぐCursor Agent 監査Rule'}
               </p>
@@ -318,18 +332,27 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
             <a
               href={downloadUrl}
               download={downloadFilename}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 shadow-md shadow-emerald-500/20 transition-all cursor-pointer"
+              className="modal-download-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
               <span>{locale === 'en' ? 'Download .md' : 'ダウンロード'}</span>
             </a>
 
+            {/* Desktop Close Button */}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors ml-1 cursor-pointer"
+              className="hidden sm:flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
+            </button>
+            {/* Mobile Absolute Close Button */}
+            <button
+              onClick={onClose}
+              className="sm:hidden absolute top-3 right-3 flex items-center justify-center p-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer active:scale-95 modal-close-btn"
+              aria-label="Close modal"
+            >
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -346,7 +369,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>{locale === 'en' ? 'Interactive Guide' : '詳細解説・仕様'}</span>
+              <span>{langFilter === 'en' ? 'Interactive Guide' : '詳細解説・仕様'}</span>
             </button>
             <button
               onClick={() => setActiveTab('fixes')}
@@ -357,7 +380,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
-              <span>{locale === 'en' ? 'CSS Fixes & Checklist' : '修正パターン & 監査項目'}</span>
+              <span>{langFilter === 'en' ? 'CSS Fixes & Checklist' : '修正パターン & 監査項目'}</span>
             </button>
             <button
               onClick={() => setActiveTab('raw')}
@@ -368,26 +391,16 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
               }`}
             >
               <Code2 className="w-3.5 h-3.5" />
-              <span>{locale === 'en' ? 'Raw Rule (.mdc)' : '生Rule (.mdc)'}</span>
+              <span>{langFilter === 'en' ? 'Raw Rule (.mdc)' : '生Rule (.mdc)'}</span>
             </button>
           </div>
 
           {activeTab === 'preview' && (
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400 text-[11px] hidden sm:inline">
-                {locale === 'en' ? 'Language View:' : '言語切替:'}
+                {langFilter === 'en' ? 'Language View:' : '言語切替:'}
               </span>
               <div className="inline-flex rounded-md p-0.5 bg-slate-900 border border-slate-800">
-                <button
-                  onClick={() => setLangFilter('all')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'all'
-                      ? 'bg-slate-700 text-white font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  {locale === 'en' ? 'Both (Full)' : '全文 (日英)'}
-                </button>
                 <button
                   onClick={() => setLangFilter('ja')}
                   className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
@@ -454,10 +467,10 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'Zero Blowout' : 'コンテナ破壊ゼロ'}</span>
+                    <span>{langFilter === 'en' ? 'Zero Blowout' : 'コンテナ破壊ゼロ'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Standardizes min-width: 0 on flex/grid children containing dynamic text.'
                       : 'flex/gridの子要素で漏れがちなmin-width: 0を徹底しレイアウト崩れを防ぐ。'}
                   </p>
@@ -466,10 +479,10 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs">
                     <Sparkles className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'CTA Preservation' : 'CTAの一貫性維持'}</span>
+                    <span>{langFilter === 'en' ? 'CTA Preservation' : 'CTAの一貫性維持'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Never shortens copy; ensures button rows and arrow icons stay visually aligned.'
                       : 'ボタン文言を勝手に短縮せず、矢印アイコンの余白や兄弟ボタンとの整合を保持。'}
                   </p>
@@ -478,10 +491,10 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs">
                     <Terminal className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'SCSS Isolation' : 'SCSSスコープ隔離'}</span>
+                    <span>{langFilter === 'en' ? 'SCSS Isolation' : 'SCSSスコープ隔離'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Enforces template-linked SCSS, protecting shared new-common/new-top stylesheets.'
                       : '共有ファイルへの直書きを禁止し、PHP紐づきSCSSまたは独自クラスに限定。'}
                   </p>
@@ -490,10 +503,10 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-amber-400 font-bold text-xs">
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>{locale === 'en' ? 'Multi-Framework' : 'マルチ構文対応'}</span>
+                    <span>{langFilter === 'en' ? 'Multi-Framework' : 'マルチ構文対応'}</span>
                   </div>
                   <p className="text-xs text-slate-400">
-                    {locale === 'en'
+                    {langFilter === 'en'
                       ? 'Seamless support for PHP templates, SCSS, Tailwind, and React JSX/TSX.'
                       : 'WordPress PHPからNext.js/React、Tailwindユーティリティまで一貫対応。'}
                   </p>
@@ -512,7 +525,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-slate-400">
-                    Core CSS Properties
+                    {langFilter === 'en' ? 'Core CSS Properties' : '主要CSSプロパティ'}
                   </span>
                 </div>
 
@@ -633,7 +646,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
               </div>
 
               {/* Bilingual Details */}
-              {(langFilter === 'all' || langFilter === 'ja') && (
+              {langFilter === 'ja' && (
                 <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
                   <div className="flex items-center gap-2 text-emerald-300 font-bold text-xs uppercase tracking-wider">
                     <span>🇯🇵</span>
@@ -652,7 +665,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                 </div>
               )}
 
-              {(langFilter === 'all' || langFilter === 'en') && (
+              {langFilter === 'en' && (
                 <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
                   <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs uppercase tracking-wider">
                     <span>🇬🇧</span>
@@ -803,10 +816,10 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
           )}
         </div>
 
-        {/* Modal Footer */}
-        <div className="p-4 sm:p-5 border-t border-slate-800/80 bg-[#070b14]/95 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-slate-400 font-mono">
-            <Terminal className="w-4 h-4 text-emerald-400 shrink-0" />
+        {/* Modal Footer: Clean Target Path Bar (redundant bottom action buttons removed) */}
+        <div className="p-3 sm:p-4 border-t border-slate-800/80 bg-[#070b14]/95 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-slate-400 font-mono text-[11px] sm:text-xs min-w-0">
+            <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
             <span className="truncate">
               Target path:{' '}
               <code className="text-emerald-300">
@@ -814,28 +827,9 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
               </code>
             </span>
           </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-colors cursor-pointer"
-            >
-              {locale === 'en' ? 'Close' : '閉じる'}
-            </button>
-
-            <a
-              href={downloadUrl}
-              download={downloadFilename}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 shadow-md shadow-emerald-500/20 transition-all cursor-pointer"
-            >
-              <Download className="w-4 h-4" />
-              <span>
-                {locale === 'en'
-                  ? 'Download Rule (.md) for Review'
-                  : 'レビュー用にRule (.md) をダウンロード'}
-              </span>
-            </a>
-          </div>
+          <span className="text-[11px] font-mono text-slate-400 shrink-0 hidden sm:inline">
+            Press <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-[10px] text-slate-200">ESC</kbd> to close
+          </span>
         </div>
       </div>
     </div>,
