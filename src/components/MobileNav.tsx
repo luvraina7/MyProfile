@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Locale } from '@/types/career';
-import { X, Briefcase, Code2, Cpu, FolderOpen, Languages } from 'lucide-react';
+import { Briefcase, Code2, Cpu, FolderOpen, Languages } from 'lucide-react';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -44,19 +44,15 @@ export function MobileNav({ isOpen, onClose, locale, activeSection, onToggleLoca
         className={`mobile-nav-panel ${isOpen ? 'is-open' : ''}`}
         aria-label="Mobile navigation"
       >
-        <div className="p-6">
-          {/* Close Button */}
-          <div className="flex items-center justify-between mb-8">
-            <span className="text-sm font-bold text-[var(--text-primary)]">
-              {locale === 'en' ? 'Navigation' : 'ナビゲーション'}
+        <div className="pt-24 px-6 pb-6 flex flex-col min-h-full">
+          {/* Panel Header */}
+          <div className="flex items-center justify-between mb-6 pb-3 border-b border-[var(--border-subtle)]">
+            <span className="text-xs font-mono-custom font-bold uppercase tracking-wider text-[var(--text-muted)]">
+              {locale === 'en' ? 'Quick Navigation' : 'ページ内ジャンプ'}
             </span>
-            <button
-              onClick={onClose}
-              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border border-[var(--border-subtle)] transition-colors cursor-pointer"
-              aria-label="Close menu"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            <span className="text-[11px] font-mono-custom px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+              {activeSection}
+            </span>
           </div>
 
           {/* Nav Links */}

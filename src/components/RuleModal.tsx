@@ -277,41 +277,53 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
       aria-modal="true"
       aria-labelledby="rule-modal-title"
     >
-      <div className="skill-spec-modal w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-emerald-500/35 bg-[#0b111e] text-slate-100">
+      <div className="skill-spec-modal w-full max-w-5xl h-[86vh] sm:h-auto sm:max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-emerald-500/35 bg-[#0b111e] text-slate-100">
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 bg-[#070b14]/95">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0 shadow-inner">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <h2
-                  id="rule-modal-title"
-                  className="text-base sm:text-lg font-bold text-white font-mono truncate"
-                >
-                  responsive-text-audit.rule.md
-                </h2>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
-                  Cursor Rule (.mdc)
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
-                  28.5 KB
-                </span>
+        <div className="p-3 sm:p-5 border-b border-slate-800/80 bg-[#070b14]/95">
+          {/* Top Row: Icon + Title + Badge + Inline Close Button */}
+          <div className="flex items-start justify-between gap-2.5 sm:gap-4">
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
+              <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0 shadow-inner mt-0.5">
+                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <p className="text-xs text-slate-300 truncate">
-                {langFilter === 'en'
-                  ? 'Autonomous CSS/SCSS layout auditor preventing text overflow and container blowout'
-                  : 'テキストはみ出し・コンテナ破壊・CTA崩れを未然に防ぐCursor Agent 監査Rule'}
-              </p>
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-0.5">
+                  <h2
+                    id="rule-modal-title"
+                    className="text-xs sm:text-lg font-bold text-white font-mono break-all sm:break-normal"
+                  >
+                    responsive-text-audit.rule.md
+                  </h2>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                    Cursor Rule (.mdc)
+                  </span>
+                  <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
+                    28.5 KB
+                  </span>
+                </div>
+                <p className="text-[11px] sm:text-xs text-slate-300 line-clamp-1 sm:line-clamp-none">
+                  {langFilter === 'en'
+                    ? 'Autonomous CSS/SCSS layout auditor preventing text overflow and container blowout'
+                    : 'テキストはみ出し・コンテナ破壊・CTA崩れを未然に防ぐCursor Agent 監査Rule'}
+                </p>
+              </div>
             </div>
+
+            {/* Desktop & Mobile Unified Close Button - Always neatly positioned on top-right */}
+            <button
+              onClick={onClose}
+              className="flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
+              aria-label="Close modal"
+            >
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
           </div>
 
-          {/* Header Actions */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-auto">
+          {/* Action Row: Copy, Download & Language Switcher */}
+          <div className="flex items-center gap-2 mt-2.5 sm:mt-3 pt-2.5 border-t border-slate-800/60 sm:border-0 sm:pt-0">
             <button
               onClick={copyMarkdownToClipboard}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-all cursor-pointer shadow-sm"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-all cursor-pointer shadow-sm active:scale-95"
               title="Copy entire rule markdown"
             >
               {isCopiedMarkdown ? (
@@ -332,118 +344,95 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
             <a
               href={downloadUrl}
               download={downloadFilename}
-              className="modal-download-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer active:scale-95"
+              className="modal-download-btn flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
               <span>{locale === 'en' ? 'Download .md' : 'ダウンロード'}</span>
             </a>
 
-            {/* Desktop Close Button */}
-            <button
-              onClick={onClose}
-              className="hidden sm:flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
-              aria-label="Close modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            {/* Mobile Absolute Close Button */}
-            <button
-              onClick={onClose}
-              className="sm:hidden absolute top-3 right-3 flex items-center justify-center p-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer active:scale-95 modal-close-btn"
-              aria-label="Close modal"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            {/* Language Switcher */}
+            <div className="inline-flex rounded-lg p-0.5 bg-slate-900 border border-slate-800 ml-auto shrink-0">
+              <button
+                onClick={() => setLangFilter('ja')}
+                className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
+                  langFilter === 'ja'
+                    ? 'bg-emerald-500/20 text-emerald-300 font-semibold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🇯🇵
+              </button>
+              <button
+                onClick={() => setLangFilter('en')}
+                className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
+                  langFilter === 'en'
+                    ? 'bg-cyan-500/20 text-cyan-300 font-semibold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🇬🇧
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Toolbar & Tabs */}
-        <div className="px-4 sm:px-6 py-2.5 border-b border-slate-800/80 bg-[#080d19]/90 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900 border border-slate-800">
+        <div className="px-3 sm:px-6 py-2 border-b border-slate-800/80 bg-[#080d19]/90 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-1 p-0.5 sm:p-1 rounded-lg bg-slate-900 border border-slate-800 w-full sm:w-auto">
             <button
               onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'preview'
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>{langFilter === 'en' ? 'Interactive Guide' : '詳細解説・仕様'}</span>
+              <span>{langFilter === 'en' ? 'Overview' : '概要・要点'}</span>
             </button>
             <button
               onClick={() => setActiveTab('fixes')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'fixes'
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
-              <span>{langFilter === 'en' ? 'CSS Fixes & Checklist' : '修正パターン & 監査項目'}</span>
+              <span>{langFilter === 'en' ? 'CSS Fixes' : '修正パターン'}</span>
             </button>
             <button
               onClick={() => setActiveTab('raw')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'raw'
                   ? 'bg-amber-500/20 text-amber-300 border border-amber-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <Code2 className="w-3.5 h-3.5" />
-              <span>{langFilter === 'en' ? 'Raw Rule (.mdc)' : '生Rule (.mdc)'}</span>
+              <span>{langFilter === 'en' ? 'Raw Rule' : '生Rule'}</span>
             </button>
           </div>
-
-          {activeTab === 'preview' && (
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-400 text-[11px] hidden sm:inline">
-                {langFilter === 'en' ? 'Language View:' : '言語切替:'}
-              </span>
-              <div className="inline-flex rounded-md p-0.5 bg-slate-900 border border-slate-800">
-                <button
-                  onClick={() => setLangFilter('ja')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'ja'
-                      ? 'bg-emerald-500/20 text-emerald-300 font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  🇯🇵 日本語
-                </button>
-                <button
-                  onClick={() => setLangFilter('en')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'en'
-                      ? 'bg-cyan-500/20 text-cyan-300 font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  🇬🇧 English
-                </button>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6 text-sm text-slate-300 leading-relaxed bg-[#0b111e]">
-          {/* TAB 1: INTERACTIVE GUIDE */}
+        <div className="p-3.5 sm:p-6 overflow-y-auto flex-1 space-y-4 sm:space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed bg-[#0b111e]">
+          {/* TAB 1: INTERACTIVE GUIDE & OVERVIEW */}
           {activeTab === 'preview' && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Top Banner */}
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl select-none">📌</span>
+              <div className="p-3.5 sm:p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <span className="text-xl sm:text-2xl select-none">📌</span>
                   <div>
-                    <h3 className="text-base font-bold text-white mb-1">
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1">
                       responsive-text-audit.mdc
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                       {langFilter === 'en' ? (
                         <>
                           Production Cursor Agent Rule enforcing layout robustness across{' '}
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-emerald-300 font-mono text-xs border border-emerald-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-emerald-300 font-mono text-[11px] sm:text-xs border border-emerald-500/20">
                             HTML, PHP, CSS, SCSS, JSX, TSX, Vue
                           </code>
                           . Proactively audits for text overflow, button size inflation, and
@@ -451,7 +440,7 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                         </>
                       ) : (
                         <>
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-emerald-300 font-mono text-xs border border-emerald-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-emerald-300 font-mono text-[11px] sm:text-xs border border-emerald-500/20">
                             ibjap-design
                           </code>{' '}
                           などの大規模WordPress/PHP/フロントエンド開発において、動的テキストの突き抜け、ボタンやカードの意図しない肥大化、flex/gridのコンテナ破壊を自動検知し、他ページへの副作用を起こさないようソースSCSSで安全に修正するCursor Rule。
@@ -462,8 +451,65 @@ export function RuleModal({ isOpen, onClose, locale }: RuleModalProps) {
                 </div>
               </div>
 
-              {/* 4 Pillars Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {/* Option B Mobile Summary Cards (< sm) */}
+              <div className="sm:hidden space-y-2.5">
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? 'Zero Blowout Safeguard' : 'コンテナ破壊ゼロの徹底'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Automates min-width: 0 on flex/grid children containing dynamic text to prevent layout breaks.'
+                      : 'flex/gridで漏れがちな min-width: 0 を徹底し、動的長文による横スクロール・突き抜けをゼロに。'}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-cyan-400 font-bold text-xs">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? 'CTA Preservation & Copy Lock' : '文言改ざん禁止 & CTA保護'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Strictly forbids shortening marketing copy; guarantees arrow spacing and button alignment.'
+                      : 'ボタンや文言の勝手な省略・短縮を禁止。矢印アイコンの余白を保ちつつ破綻のない折り返しを実現。'}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
+                    <Terminal className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? 'Scoped Source SCSS' : 'ソースSCSSへの局所適用'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Injects fixes into template-linked SCSS, protecting shared new-common/top stylesheets.'
+                      : '共通スタイルを汚さず、テンプレート固有のソースSCSSにスコープ付きで安全にパッチを適用。'}
+                  </p>
+                </div>
+
+                {/* Mobile Quick Navigation Card */}
+                <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-between gap-2">
+                  <div>
+                    <span className="text-xs font-bold text-cyan-200">
+                      {langFilter === 'en' ? 'Ready to see code solutions?' : '実装コードを確認する'}
+                    </span>
+                    <p className="text-[11px] text-slate-400">
+                      {langFilter === 'en' ? '8 production-tested CSS patterns' : '8種類の検証済みCSS修正パターン'}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setActiveTab('fixes')}
+                    className="px-2.5 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-semibold shrink-0 cursor-pointer transition-colors"
+                  >
+                    {langFilter === 'en' ? 'View Fixes →' : 'パターン →'}
+                  </button>
+                </div>
+              </div>
+
+              {/* Desktop 4 Pillars Grid (>= sm) */}
+              <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
                     <ShieldCheck className="w-4 h-4" />

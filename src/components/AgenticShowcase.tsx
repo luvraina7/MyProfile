@@ -141,7 +141,7 @@ export function AgenticShowcase({ locale }: AgenticShowcaseProps) {
             <Cpu className="w-4 h-4" />
             <span>{content.badge}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight break-keep">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight [overflow-wrap:anywhere] break-words">
             {content.title}
           </h2>
           <p className="text-base sm:text-lg text-[var(--text-secondary)] mt-4 leading-relaxed">
@@ -227,7 +227,7 @@ export function AgenticShowcase({ locale }: AgenticShowcaseProps) {
                       </span>
                     </div>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-cyan-300 transition-colors leading-snug break-keep flex items-center justify-between">
+                  <h3 className="text-lg sm:text-2xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-cyan-300 transition-colors leading-snug [overflow-wrap:anywhere] break-words flex items-center justify-between">
                     <span>{item.title}</span>
                     {isClickable && (
                       <ArrowUpRight className="w-5 h-5 text-cyan-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 ml-2" />

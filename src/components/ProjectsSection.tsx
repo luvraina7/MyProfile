@@ -102,7 +102,7 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
             <FolderOpen className="w-4 h-4" />
             <span>{content.badge}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight [overflow-wrap:anywhere] break-words">
             {content.title}
           </h2>
           <p className="text-base sm:text-lg text-[var(--text-secondary)] mt-4 leading-relaxed">
@@ -131,7 +131,7 @@ export function ProjectsSection({ locale }: ProjectsSectionProps) {
                       {project.impact}
                     </span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-cyan-300 transition-colors leading-snug break-keep">
+                  <h3 className="text-lg sm:text-2xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-cyan-300 transition-colors leading-snug [overflow-wrap:anywhere] break-words">
                     {project.title}
                   </h3>
                   <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">

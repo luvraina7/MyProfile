@@ -4,6 +4,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { CareerMilestone, Locale } from '@/types/career';
 import { FilterBar } from './FilterBar';
 import { TimelineItem } from './TimelineItem';
+import { TimelineMobileNav } from './TimelineMobileNav';
 import { useInView } from '@/hooks/useInView';
 import { Sparkles, Briefcase, ChevronDown } from 'lucide-react';
 
@@ -36,6 +37,8 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
     };
   }, [milestoneDropdownOpen]);
 
+  const [activeMilestoneIndex, setActiveMilestoneIndex] = useState<number>(0);
+
   const categories = ['All', 'AI & Automation', 'Performance & DevOps', 'Frontend', 'Full-Stack', 'Mobile'];
 
   const filteredTimeline = useMemo(() => {
@@ -47,6 +50,39 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
     });
   }, [timeline, selectedCategory, selectedTech]);
 
+  // Track the milestone currently in the active reading viewport zone
+  useEffect(() => {
+    if (!filteredTimeline.length) return;
+
+    const observers: IntersectionObserver[] = [];
+
+    filteredTimeline.forEach((item, index) => {
+      const el = document.getElementById(`milestone-${item.id}`);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const [entry] = entries;
+          if (entry.isIntersecting) {
+            setActiveMilestoneIndex(index);
+          }
+        },
+        {
+          root: null,
+          rootMargin: '-15% 0px -50% 0px',
+          threshold: 0.05,
+        }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+    };
+  }, [filteredTimeline]);
+
   return (
     <section id="timeline" className="py-20 md:py-32 relative">
       <div className="max-w-5xl mx-auto px-6 sm:px-8">
@@ -56,7 +92,7 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
             <Briefcase className="w-4 h-4" />
             <span>{locale === 'en' ? 'Career Progression' : '職務経歴・実績'}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight [overflow-wrap:anywhere] break-words">
             {locale === 'en' ? '6+ Years of Impact in Japan' : '日本での6年以上の開発実績と進化'}
           </h2>
           <p className="text-base sm:text-lg text-[var(--text-secondary)] mt-4 leading-relaxed">
@@ -197,6 +233,7 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
                 locale={locale}
                 selectedTech={selectedTech}
                 onSelectTech={(tech) => setSelectedTech(tech)}
+                isActive={activeMilestoneIndex === idx}
               />
             ))
           ) : (
@@ -219,6 +256,16 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
             </div>
           )}
         </div>
+
+        {/* Mobile & Tablet Floating Milestone Thumb Navigator (iOS & Android optimized) */}
+        {filteredTimeline.length > 0 && (
+          <TimelineMobileNav
+            timeline={filteredTimeline}
+            locale={locale}
+            currentIndex={activeMilestoneIndex}
+            onSelectIndex={setActiveMilestoneIndex}
+          />
+        )}
       </div>
     </section>
   );

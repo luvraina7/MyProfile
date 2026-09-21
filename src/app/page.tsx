@@ -19,10 +19,7 @@ export default function HomePage() {
   const allTechStacks = getAllTechStacks();
 
   return (
-    <div className="relative min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
-      {/* Dramatic Grid Pattern Layer */}
-      <div className="grid-pattern" aria-hidden="true" />
-
+    <div className="relative min-h-screen flex flex-col w-full max-w-full overflow-x-clip selection:bg-cyan-500 selection:text-black">
       {/* Top Navigation — full width */}
       <div className="w-full">
         <Navbar
@@ -32,7 +29,7 @@ export default function HomePage() {
       </div>
 
       {/* Main Content Sections — block flow; each section centers itself via internal max-w-5xl */}
-      <main className="flex-1 relative z-10">
+      <main className="flex-1 relative z-10 w-full max-w-full overflow-x-clip">
         {/* 1. Hero with Key Metrics */}
         <Hero
           data={data}

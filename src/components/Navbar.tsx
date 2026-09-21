@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Locale } from '@/types/career';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
-import { Languages, Moon, Sun, Briefcase, Cpu, Code2, FolderOpen, Menu } from 'lucide-react';
+import { Languages, Moon, Sun, Briefcase, Cpu, Code2, FolderOpen, Menu, X } from 'lucide-react';
 import { MobileNav } from './MobileNav';
 
 interface NavbarProps {
@@ -189,13 +189,22 @@ export function Navbar({ locale, onToggleLocale }: NavbarProps) {
               {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4" />}
             </button>
 
-            {/* Mobile / Tablet Hamburger */}
+            {/* Mobile / Tablet Hamburger & Close Toggle */}
             <button
-              onClick={() => setIsMobileOpen(true)}
-              className="lg:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border border-[var(--border-subtle)] transition-colors cursor-pointer"
-              aria-label="Open navigation menu"
+              onClick={() => setIsMobileOpen((prev) => !prev)}
+              className={`lg:hidden p-2 rounded-xl border transition-all cursor-pointer ${
+                isMobileOpen
+                  ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-600 dark:text-cyan-300 shadow-sm shadow-cyan-500/20'
+                  : 'bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] border-[var(--border-subtle)]'
+              }`}
+              aria-label={
+                isMobileOpen
+                  ? (locale === 'en' ? 'Close navigation menu' : 'ナビゲーションメニューを閉じる')
+                  : (locale === 'en' ? 'Open navigation menu' : 'ナビゲーションメニューを開く')
+              }
+              aria-expanded={isMobileOpen}
             >
-              <Menu className="w-4 h-4" />
+              {isMobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>

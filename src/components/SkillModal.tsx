@@ -284,7 +284,7 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -292,33 +292,31 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
       aria-modal="true"
       aria-labelledby="skill-modal-title"
     >
-      <div className="skill-spec-modal w-full max-w-5xl h-[92vh] sm:h-auto sm:max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-amber-500/35 bg-[#0b111e] text-slate-100">
+      <div className="skill-spec-modal w-full max-w-5xl h-[86vh] sm:h-auto sm:max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-amber-500/35 bg-[#0b111e] text-slate-100">
         {/* Modal Header */}
-        <div className="p-3.5 sm:p-5 border-b border-slate-800/80 bg-[#070b14]/95 relative">
-          <div className="flex items-start justify-between gap-3">
-            {/* Left: Icon + Title + Meta */}
-            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0 pr-8 sm:pr-0">
+        <div className="p-3 sm:p-5 border-b border-slate-800/80 bg-[#070b14]/95">
+          {/* Top Row: Icon + Title + Badges + Close Button */}
+          <div className="flex items-start justify-between gap-2.5 sm:gap-4">
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
               <div className="p-2 sm:p-2.5 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0 shadow-inner mt-0.5">
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-0.5">
                   <h2
                     id="skill-modal-title"
-                    className="text-sm sm:text-lg font-bold text-white font-mono break-all sm:break-normal"
+                    className="text-xs sm:text-lg font-bold text-white font-mono break-all sm:break-normal"
                   >
                     clean-kaisetu-asset-rebuilds.skill.md
                   </h2>
-                  <div className="flex items-center gap-1.5">
-                    <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
-                      Cursor Agent Skill
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
-                      19.9 KB
-                    </span>
-                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                    Cursor Agent Skill
+                  </span>
+                  <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
+                    19.9 KB
+                  </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-slate-300 leading-snug line-clamp-2">
+                <p className="text-[11px] sm:text-xs text-slate-300 line-clamp-1 sm:line-clamp-none">
                   {langFilter === 'en'
                     ? 'Autonomous Webpack noise detector and pre-commit cleanup tool for enterprise assets'
                     : 'webpack再ビルドによる不要な差分（ノイズ）を自動検出し、コミット前に安全に元に戻す自作Skill'}
@@ -326,26 +324,18 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
               </div>
             </div>
 
-            {/* Desktop Close Button */}
+            {/* Desktop & Mobile Unified Close Button */}
             <button
               onClick={onClose}
-              className="hidden sm:flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
+              className="flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
-            </button>
-            {/* Mobile Absolute Close Button */}
-            <button
-              onClick={onClose}
-              className="sm:hidden absolute top-3 right-3 flex items-center justify-center p-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer active:scale-95 modal-close-btn"
-              aria-label="Close modal"
-            >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
 
-          {/* Action buttons row */}
-          <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-slate-800/50 sm:border-0 sm:mt-2.5 sm:pt-0">
+          {/* Action Row: Copy, Download & Language Switcher */}
+          <div className="flex items-center gap-2 mt-2.5 sm:mt-3 pt-2.5 border-t border-slate-800/60 sm:border-0 sm:pt-0">
             <button
               onClick={copyMarkdownToClipboard}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-all cursor-pointer shadow-sm active:scale-95"
@@ -374,118 +364,110 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
               <Download className="w-3.5 h-3.5" />
               <span>{locale === 'en' ? 'Download .md' : 'ダウンロード'}</span>
             </a>
+
+            {/* Language Switcher */}
+            <div className="inline-flex rounded-lg p-0.5 bg-slate-900 border border-slate-800 ml-auto shrink-0">
+              <button
+                onClick={() => setLangFilter('ja')}
+                className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
+                  langFilter === 'ja'
+                    ? 'bg-amber-500/20 text-amber-300 font-semibold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🇯🇵
+              </button>
+              <button
+                onClick={() => setLangFilter('en')}
+                className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
+                  langFilter === 'en'
+                    ? 'bg-cyan-500/20 text-cyan-300 font-semibold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🇬🇧
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* View Switcher & Filter Toolbar */}
-        <div className="px-3.5 sm:px-6 py-2.5 border-b border-slate-800/80 bg-[#080d19]/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
-          {/* Main Tabs */}
-          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-900 border border-slate-800 overflow-x-auto scrollbar-none">
+        {/* Toolbar & Tabs */}
+        <div className="px-3 sm:px-6 py-2 border-b border-slate-800/80 bg-[#080d19]/90 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-1 p-0.5 sm:p-1 rounded-lg bg-slate-900 border border-slate-800 w-full sm:w-auto">
             <button
               onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'preview'
                   ? 'bg-amber-500/20 text-amber-300 border border-amber-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>{locale === 'en' ? 'Interactive Guide' : '詳細解説・仕様'}</span>
+              <span>{locale === 'en' ? 'Overview' : '概要・要点'}</span>
             </button>
             <button
               onClick={() => setActiveTab('scripts')}
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'scripts'
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <Terminal className="w-3.5 h-3.5" />
-              <span>{locale === 'en' ? 'Bundled Scripts' : '付属スクリプト'}</span>
+              <span>{locale === 'en' ? 'Scripts' : '付属スクリプト'}</span>
             </button>
             <button
               onClick={() => setActiveTab('raw')}
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'raw'
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <Code2 className="w-3.5 h-3.5" />
-              <span>{locale === 'en' ? 'Raw Markdown' : '生Markdown'}</span>
+              <span>{locale === 'en' ? 'Raw .md' : '生Markdown'}</span>
             </button>
           </div>
-
-          {/* Language filter for preview tab */}
-          {activeTab === 'preview' && (
-            <div className="flex items-center gap-1.5 self-end sm:self-auto">
-              <span className="text-slate-400 text-[11px] hidden sm:inline">
-                {langFilter === 'en' ? 'Language View:' : '言語切替:'}
-              </span>
-              <div className="inline-flex rounded-md p-0.5 bg-slate-900 border border-slate-800">
-                <button
-                  onClick={() => setLangFilter('ja')}
-                  className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'ja'
-                      ? 'bg-amber-500/20 text-amber-300 font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  🇯🇵 日本語
-                </button>
-                <button
-                  onClick={() => setLangFilter('en')}
-                  className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'en'
-                      ? 'bg-cyan-500/20 text-cyan-300 font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  🇬🇧 English
-                </button>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6 text-sm text-slate-300 leading-relaxed bg-[#0b111e]">
-          {/* TAB 1: INTERACTIVE GUIDE */}
+        <div className="p-3.5 sm:p-6 overflow-y-auto flex-1 space-y-4 sm:space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed bg-[#0b111e]">
+          {/* TAB 1: INTERACTIVE GUIDE & OVERVIEW */}
           {activeTab === 'preview' && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Top Banner & Core Purpose */}
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/25">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl select-none">🧹</span>
+              <div className="p-3.5 sm:p-4 rounded-xl bg-amber-500/10 border border-amber-500/25">
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <span className="text-xl sm:text-2xl select-none">🧹</span>
                   <div>
-                    <h3 className="text-base font-bold text-white mb-1">
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1">
                       clean-kaisetu-asset-rebuilds
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                       {langFilter === 'en' ? (
                         <>
                           A high-safety Cursor Agent Skill that detects CSS/JS files in{' '}
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-xs border border-amber-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-[11px] sm:text-xs border border-amber-500/20">
                             kaisetu-pack/assets/
                           </code>{' '}
                           rebuilt by Webpack without any underlying SCSS/JS edits, reverting them
                           safely with{' '}
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-xs border border-cyan-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-[11px] sm:text-xs border border-cyan-500/20">
                             git checkout HEAD --
                           </code>{' '}
                           after interactive user confirmation.
                         </>
                       ) : (
                         <>
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-xs border border-amber-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-[11px] sm:text-xs border border-amber-500/20">
                             ibjap-design
                           </code>{' '}
                           リポジトリで{' '}
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-xs border border-cyan-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-[11px] sm:text-xs border border-cyan-500/20">
                             npm run dev:prod
                           </code>{' '}
                           を実行後、編集していない SCSS/JS から再ビルドされてしまった{' '}
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-xs border border-amber-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-[11px] sm:text-xs border border-amber-500/20">
                             assets/
                           </code>{' '}
                           配下のCSS/JS（autoprefixer/minifier由来のノイズ差分）を自動検出し、PRをノイズ汚染から守るクリーンアップ専用スキル。
@@ -496,8 +478,65 @@ export function SkillModal({ isOpen, onClose, locale }: SkillModalProps) {
                 </div>
               </div>
 
-              {/* 4 Pillars Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {/* Option B Mobile Summary Cards (< sm) */}
+              <div className="sm:hidden space-y-2.5">
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? 'Minutes → Seconds' : '工数短縮：手動選別ゼロ'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Eliminates tedious manual pre-commit asset triage and git diff reviews across dozens of compiled assets.'
+                      : '再ビルドによる無関係なCSS/JS差分を手動選別する時間をゼロにし、PRレビューを本来のロジックに集中。'}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? 'Strict Hard Guards' : '安全ガード：assets限定'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Strictly scoped to assets/. Impossible to revert or touch src/, configs, or untracked files.'
+                      : '操作対象を assets/ 配下のみに限定。src/ や設定ファイル、未追跡ファイルへの誤操作を物理遮断。'}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-cyan-400 font-bold text-xs">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? 'Human-in-the-Loop' : '対話型確認フロー'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Never auto-reverts silently. Always prints a classified preview of intended vs noise diffs first.'
+                      : '勝手にファイルを元に戻すことはありません。意図した差分とノイズを事前プレビューし、承認後のみ実行。'}
+                  </p>
+                </div>
+
+                {/* Mobile Quick Navigation Card */}
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-2">
+                  <div>
+                    <span className="text-xs font-bold text-amber-200">
+                      {langFilter === 'en' ? 'Explore Cleanup Scripts' : '付属スクリプトを確認する'}
+                    </span>
+                    <p className="text-[11px] text-slate-400">
+                      {langFilter === 'en' ? '2 bundled shell & node scripts' : 'find-webpack-noise & revert-noise'}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setActiveTab('scripts')}
+                    className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-semibold shrink-0 cursor-pointer transition-colors"
+                  >
+                    {langFilter === 'en' ? 'View Scripts →' : 'スクリプト →'}
+                  </button>
+                </div>
+              </div>
+
+              {/* Desktop 4 Pillars Grid (>= sm) */}
+              <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-amber-400 font-bold text-xs">
                     <Zap className="w-4 h-4" />
