@@ -15,6 +15,7 @@ interface TimelineItemProps {
   nextMilestoneId?: string;
   isFirst?: boolean;
   isLast?: boolean;
+  isActive?: boolean;
 }
 
 export function TimelineItem({
@@ -25,12 +26,11 @@ export function TimelineItem({
   onSelectTech,
   prevMilestoneId,
   nextMilestoneId,
+  isActive = false,
 }: TimelineItemProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const { ref, isVisible } = useInView({ threshold: 0.1 });
   const { ref: nodeRef, isVisible: nodeVisible } = useInView({ threshold: 0.5 });
-
-  const isCurrent = item.period.end === 'Present' || item.period.end === '現在';
 
   const categoryGradients: Record<string, string> = {
     'AI & Automation': 'border-emerald-600/30 bg-emerald-50 text-emerald-950 dark:text-indigo-300 dark:bg-emerald-500/10 dark:border-emerald-500/40',
@@ -62,7 +62,7 @@ export function TimelineItem({
     >
       {/* Symmetrical horizontal connector arm on mobile/tablet */}
       <div
-        className="lg:hidden absolute left-5 sm:left-7 top-[38px] w-6 sm:w-8 h-[2px] bg-gradient-to-r from-cyan-400 via-indigo-400/80 to-transparent pointer-events-none -translate-y-1/2 z-0"
+        className="lg:hidden absolute left-3.5 sm:left-5 top-[38px] w-4 sm:w-6 h-[2px] bg-gradient-to-r from-cyan-400 via-indigo-400/80 to-transparent pointer-events-none -translate-y-1/2 z-0"
         aria-hidden="true"
       />
 
@@ -76,13 +76,13 @@ export function TimelineItem({
         aria-hidden="true"
       />
 
-      {/* Interactive Milestone Stepper Cluster: Up Arrow + Center Node + Down Arrow */}
+      {/* Interactive Milestone Stepper Cluster: Center Node (Mobile/Tablet) + Up/Down Arrows on Desktop */}
       <div
-        className="absolute left-5 sm:left-7 top-[38px] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1.5 lg:left-1/2 lg:top-[50px]"
+        className="absolute left-3.5 sm:left-5 top-[38px] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1.5 lg:left-1/2 lg:top-[50px]"
         role="navigation"
         aria-label={`Milestone navigation for ${item.role}`}
       >
-        {/* Up Arrow — navigates to previous milestone or section top */}
+        {/* Up Arrow — desktop only (hidden lg:flex) */}
         <button
           type="button"
           onClick={(e) => {
@@ -90,29 +90,31 @@ export function TimelineItem({
             const targetEl = document.getElementById(prevTargetId);
             targetEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }}
-          className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white dark:bg-[#0e1426] border border-slate-300 dark:border-white/20 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-200 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 flex items-center justify-center transition-all hover:scale-115 active:scale-90 shadow-sm cursor-pointer"
+          className="hidden lg:flex w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white dark:bg-[#0e1426] border border-slate-300 dark:border-white/20 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-200 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-[#12233c] active:bg-cyan-100 dark:active:bg-[#162b48] items-center justify-center transition-all hover:scale-115 active:scale-90 shadow-sm cursor-pointer"
           title={prevTitle}
           aria-label={prevTitle}
         >
           <ChevronUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
         </button>
 
-        {/* Center Milestone Node Indicator */}
+        {/* Center Milestone Node Indicator — dynamically glows when active */}
         <div
           ref={nodeRef}
-          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[var(--bg-primary)] border-2 ${
-            isCurrent ? 'border-cyan-400 shadow-lg shadow-cyan-400/50' : 'border-indigo-400/60'
-          } flex items-center justify-center transition-all timeline-node-pop ${nodeVisible ? 'is-visible' : ''}`}
+          className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 rounded-full bg-[var(--bg-primary)] border-2 transition-all duration-300 ${
+            isActive
+              ? 'border-cyan-400 shadow-lg shadow-cyan-400/60 scale-110'
+              : 'border-indigo-400/40 opacity-70 hover:opacity-100 hover:border-cyan-400/50'
+          } flex items-center justify-center timeline-node-pop ${nodeVisible ? 'is-visible' : ''}`}
           title={`${item.period.start}: ${item.role}`}
         >
-          {isCurrent ? (
+          {isActive ? (
             <div className="timeline-node-current" />
           ) : (
             <div className="timeline-node-static" />
           )}
         </div>
 
-        {/* Down Arrow — navigates to next milestone or next section */}
+        {/* Down Arrow — desktop only (hidden lg:flex) */}
         <button
           type="button"
           onClick={(e) => {
@@ -120,7 +122,7 @@ export function TimelineItem({
             const targetEl = document.getElementById(nextTargetId);
             targetEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }}
-          className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white dark:bg-[#0e1426] border border-slate-300 dark:border-white/20 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-200 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 flex items-center justify-center transition-all hover:scale-115 active:scale-90 shadow-sm cursor-pointer"
+          className="hidden lg:flex w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white dark:bg-[#0e1426] border border-slate-300 dark:border-white/20 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-200 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-[#12233c] active:bg-cyan-100 dark:active:bg-[#162b48] items-center justify-center transition-all hover:scale-115 active:scale-90 shadow-sm cursor-pointer"
           title={nextTitle}
           aria-label={nextTitle}
         >
@@ -128,8 +130,8 @@ export function TimelineItem({
         </button>
       </div>
 
-      {/* Grid container — offset right on mobile/tablet to leave continuous rail clear; 2-col on desktop */}
-      <div className={`pl-10 sm:pl-14 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-20 items-start ${index % 2 === 0 ? '' : 'lg:grid-flow-dense'}`}>
+      {/* Grid container — slimmed offset on mobile/tablet to give cards maximum width; 2-col on desktop */}
+      <div className={`pl-7 sm:pl-10 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-20 items-start ${index % 2 === 0 ? '' : 'lg:grid-flow-dense'}`}>
         {/* Date / Category pill for opposite column on desktop */}
         <div className={`hidden lg:flex flex-col justify-center pt-8 ${index % 2 === 0 ? 'text-right pr-10 items-end' : 'lg:col-start-2 pl-10 items-start'}`}>
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-[var(--border-subtle)] text-xs font-mono-custom text-slate-800 dark:text-[var(--text-secondary)] font-medium w-fit shadow-sm">
@@ -154,7 +156,7 @@ export function TimelineItem({
                   {item.period.start} ~ {item.period.end}
                 </span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-cyan-300 transition-colors leading-snug tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-cyan-300 transition-colors leading-snug tracking-tight [overflow-wrap:anywhere] break-words">
                 {item.role}
               </h3>
               <div className="flex items-center gap-2.5 text-[15px] text-[var(--text-secondary)] mt-2 font-medium">

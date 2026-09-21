@@ -178,7 +178,7 @@ export function WebpModal({ isOpen, onClose, locale }: WebpModalProps) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -186,32 +186,31 @@ export function WebpModal({ isOpen, onClose, locale }: WebpModalProps) {
       aria-modal="true"
       aria-labelledby="webp-modal-title"
     >
-      <div className="skill-spec-modal w-full max-w-5xl h-[92vh] sm:h-auto sm:max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-cyan-500/35 bg-[#0b111e] text-slate-100">
+      <div className="skill-spec-modal w-full max-w-5xl h-[86vh] sm:h-auto sm:max-h-[90vh] flex flex-col overflow-hidden shadow-2xl rounded-2xl border border-cyan-500/35 bg-[#0b111e] text-slate-100">
         {/* Modal Header */}
-        <div className="p-3.5 sm:p-5 border-b border-slate-800/80 bg-[#070b14]/95 relative">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0 pr-8 sm:pr-0">
+        <div className="p-3 sm:p-5 border-b border-slate-800/80 bg-[#070b14]/95">
+          {/* Top Row: Icon + Title + Badges + Close Button */}
+          <div className="flex items-start justify-between gap-2.5 sm:gap-4">
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
               <div className="p-2 sm:p-2.5 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 shrink-0 shadow-inner mt-0.5">
                 <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-0.5">
                   <h2
                     id="webp-modal-title"
-                    className="text-sm sm:text-lg font-bold text-white font-mono break-all sm:break-normal"
+                    className="text-xs sm:text-lg font-bold text-white font-mono break-all sm:break-normal"
                   >
                     kaisetu-webp-conversion.skill.md
                   </h2>
-                  <div className="flex items-center gap-1.5">
-                    <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
-                      Cursor Agent Skill
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
-                      62.9 KB
-                    </span>
-                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
+                    Cursor Agent Skill
+                  </span>
+                  <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                    62.9 KB
+                  </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-slate-300 leading-snug line-clamp-2">
+                <p className="text-[11px] sm:text-xs text-slate-300 line-clamp-1 sm:line-clamp-none">
                   {langFilter === 'en'
                     ? 'Autonomous WebP conversion, reference synchronization, and asset pruning specification'
                     : '画像のWebP変換・参照パス更新・安全削除を体系化したディレクター・エンジニア向け仕様書'}
@@ -219,26 +218,18 @@ export function WebpModal({ isOpen, onClose, locale }: WebpModalProps) {
               </div>
             </div>
 
-            {/* Desktop Close Button */}
+            {/* Desktop & Mobile Unified Close Button */}
             <button
               onClick={onClose}
-              className="hidden sm:flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
+              className="flex items-center justify-center p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer shrink-0 active:scale-95 modal-close-btn"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
-            </button>
-            {/* Mobile Absolute Close Button */}
-            <button
-              onClick={onClose}
-              className="sm:hidden absolute top-3 right-3 flex items-center justify-center p-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 shadow-sm transition-all cursor-pointer active:scale-95 modal-close-btn"
-              aria-label="Close modal"
-            >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
 
-          {/* Action buttons row */}
-          <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-slate-800/50 sm:border-0 sm:mt-2.5 sm:pt-0">
+          {/* Action Row: Copy, Download & Language Switcher */}
+          <div className="flex items-center gap-2 mt-2.5 sm:mt-3 pt-2.5 border-t border-slate-800/60 sm:border-0 sm:pt-0">
             <button
               onClick={copyMarkdownToClipboard}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-all cursor-pointer shadow-sm active:scale-95"
@@ -267,100 +258,94 @@ export function WebpModal({ isOpen, onClose, locale }: WebpModalProps) {
               <Download className="w-3.5 h-3.5" />
               <span>{locale === 'en' ? 'Download .md' : 'ダウンロード'}</span>
             </a>
+
+            {/* Language Switcher */}
+            <div className="inline-flex rounded-lg p-0.5 bg-slate-900 border border-slate-800 ml-auto shrink-0">
+              <button
+                onClick={() => setLangFilter('ja')}
+                className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
+                  langFilter === 'ja'
+                    ? 'bg-cyan-500/20 text-cyan-300 font-semibold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🇯🇵
+              </button>
+              <button
+                onClick={() => setLangFilter('en')}
+                className={`px-2 py-1 rounded text-[10px] sm:text-[11px] font-medium transition-colors cursor-pointer ${
+                  langFilter === 'en'
+                    ? 'bg-emerald-500/20 text-emerald-300 font-semibold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🇬🇧
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Toolbar & Tab Switcher */}
-        <div className="px-3.5 sm:px-6 py-2.5 border-b border-slate-800/80 bg-[#080d19]/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
-          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-900 border border-slate-800 overflow-x-auto scrollbar-none">
+        <div className="px-3 sm:px-6 py-2 border-b border-slate-800/80 bg-[#080d19]/90 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-1 p-0.5 sm:p-1 rounded-lg bg-slate-900 border border-slate-800 w-full sm:w-auto">
             <button
               onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'preview'
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>{langFilter === 'en' ? 'Interactive Guide' : '詳細解説・仕様'}</span>
+              <span>{langFilter === 'en' ? 'Overview' : '概要・要点'}</span>
             </button>
             <button
               onClick={() => setActiveTab('cli')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'cli'
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <Terminal className="w-3.5 h-3.5" />
-              <span>{langFilter === 'en' ? 'CLI Pipeline & Tools' : 'CLI スクリプト & 手順'}</span>
+              <span>{langFilter === 'en' ? 'CLI Snippets' : '付属コマンド'}</span>
             </button>
             <button
               onClick={() => setActiveTab('raw')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 activeTab === 'raw'
                   ? 'bg-amber-500/20 text-amber-300 border border-amber-500/35 shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
               }`}
             >
               <Code2 className="w-3.5 h-3.5" />
-              <span>{langFilter === 'en' ? 'Raw Markdown' : '生Markdown'}</span>
+              <span>{langFilter === 'en' ? 'Raw .md' : '生Markdown'}</span>
             </button>
           </div>
-
-          {activeTab === 'preview' && (
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-400 text-[11px] hidden sm:inline">
-                {langFilter === 'en' ? 'Language View:' : '言語切替:'}
-              </span>
-              <div className="inline-flex rounded-md p-0.5 bg-slate-900 border border-slate-800">
-                <button
-                  onClick={() => setLangFilter('ja')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'ja'
-                      ? 'bg-cyan-500/20 text-cyan-300 font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  🇯🇵 日本語
-                </button>
-                <button
-                  onClick={() => setLangFilter('en')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
-                    langFilter === 'en'
-                      ? 'bg-emerald-500/20 text-emerald-300 font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  🇬🇧 English
-                </button>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Modal Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6 text-sm text-slate-300 leading-relaxed bg-[#0b111e]">
-          {/* TAB 1: INTERACTIVE GUIDE */}
+        <div className="p-3.5 sm:p-6 overflow-y-auto flex-1 space-y-4 sm:space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed bg-[#0b111e]">
+          {/* TAB 1: INTERACTIVE GUIDE & OVERVIEW */}
           {activeTab === 'preview' && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Banner */}
-              <div className="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/25">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl select-none">📘</span>
+              <div className="p-3.5 sm:p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/25">
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <span className="text-xl sm:text-2xl select-none">📘</span>
                   <div>
-                    <h3 className="text-base font-bold text-white mb-1">
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1">
                       Kaisetu WebP 変換ガイド（ディレクター・エンジニア向け）
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                       {langFilter === 'en' ? (
                         <>
                           Complete operational specification for migrating legacy{' '}
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-xs border border-cyan-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-[11px] sm:text-xs border border-cyan-500/20">
                             PNG / JPG / SVG
                           </code>{' '}
                           assets under enterprise platforms to optimized{' '}
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-emerald-300 font-mono text-xs border border-emerald-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-emerald-300 font-mono text-[11px] sm:text-xs border border-emerald-500/20">
                             .webp
                           </code>
                           , with synchronized template reference updates, SASS recompilation, and safe
@@ -369,7 +354,7 @@ export function WebpModal({ isOpen, onClose, locale }: WebpModalProps) {
                       ) : (
                         <>
                           大規模Webプラットフォーム（
-                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-xs border border-cyan-500/20">
+                          <code className="px-1.5 py-0.5 rounded bg-black/60 text-cyan-300 font-mono text-[11px] sm:text-xs border border-cyan-500/20">
                             kaisetu-pack
                           </code>
                           ）で利用されている画像のWebP化を安全に行うための実務ガイド。
@@ -381,8 +366,65 @@ export function WebpModal({ isOpen, onClose, locale }: WebpModalProps) {
                 </div>
               </div>
 
-              {/* 4 Pillars */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {/* Option B Mobile Summary Cards (< sm) */}
+              <div className="sm:hidden space-y-2.5">
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-cyan-400 font-bold text-xs">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? '20-40% File Size Reduction' : '20-40% の容量圧縮'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Lossless and visually indistinguishable WebP compression, radically optimizing mobile LCP scores.'
+                      : '視覚的品質を損なうことなく画像容量を大幅削減し、スマホ表示速度とCore Web Vitalsを最適化。'}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? 'Zero Broken Links Policy' : 'リンク切れ完全防止'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'Automated inventory scripts scan all PHP and SCSS templates before any original assets can be deleted.'
+                      : '事前棚卸しスクリプトでPHP/SCSSの画像参照を網羅確認。削除前にgrep検証を義務化しリンク切れを防止。'}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                  <div className="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
+                    <ListOrdered className="w-3.5 h-3.5" />
+                    <span>{langFilter === 'en' ? '9-Step Standard Flow' : '9ステップの標準フロー'}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-normal">
+                    {langFilter === 'en'
+                      ? 'From asset discovery to WebP generation, stylelint fix, and git commit hygiene in one workflow.'
+                      : '棚卸し → 一括変換 → テンプレート更新 → SASSコンパイル → 安全削除まで1連のフローで標準化。'}
+                  </p>
+                </div>
+
+                {/* Mobile Quick Navigation Card */}
+                <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-between gap-2">
+                  <div>
+                    <span className="text-xs font-bold text-cyan-200">
+                      {langFilter === 'en' ? 'Explore CLI Commands' : '付属CLIコマンドを確認する'}
+                    </span>
+                    <p className="text-[11px] text-slate-400">
+                      {langFilter === 'en' ? '5 production pipeline scripts' : '棚卸し・変換・安全削除コマンド'}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setActiveTab('cli')}
+                    className="px-2.5 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-semibold shrink-0 cursor-pointer transition-colors"
+                  >
+                    {langFilter === 'en' ? 'View CLI →' : 'コマンド →'}
+                  </button>
+                </div>
+              </div>
+
+              {/* Desktop 4 Pillars (>= sm) */}
+              <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
                   <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs">
                     <Sparkles className="w-4 h-4" />

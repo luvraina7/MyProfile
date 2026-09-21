@@ -55,6 +55,11 @@ export default function RootLayout({
     >
       <body>
         <ThemeInit />
+        <div
+          className="fixed inset-0 pointer-events-none -z-10 grid-pattern"
+          aria-hidden="true"
+          style={{ position: 'fixed', inset: 0, pointerEvents: 'none' }}
+        />
         {children}
       </body>
     </html>
