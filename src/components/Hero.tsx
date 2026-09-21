@@ -118,6 +118,7 @@ export function Hero({ data, locale }: HeroProps) {
               onClick={() => setResumeMenuOpen((v) => !v)}
               aria-expanded={resumeMenuOpen}
               aria-haspopup="menu"
+              aria-controls="resume-download-menu"
               className={`px-5 py-3.5 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-subtle-hover)] text-[var(--text-primary)] font-semibold text-sm border flex items-center gap-2.5 transition-all hover:border-emerald-500/40 ${resumeMenuOpen ? 'border-emerald-500/50 bg-[var(--surface-subtle-hover)]' : 'border-[var(--border-subtle)]'}`}
             >
               <Download className="w-4 h-4 text-emerald-400" />
@@ -128,6 +129,7 @@ export function Hero({ data, locale }: HeroProps) {
             {/* In-flow dropdown avoids covering cards/content below */}
             {resumeMenuOpen && (
               <div
+                id="resume-download-menu"
                 role="menu"
                 className="mt-2 w-56 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-subtle)] shadow-xl shadow-black/40 overflow-hidden"
                 style={{ animation: 'reveal-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both' }}

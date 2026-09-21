@@ -158,6 +158,7 @@ export function TimelineMobileNav({
         {/* Milestone Quick Jump Sheet (Opens above pill dock) */}
         {isMenuOpen && (
           <div
+            id="timeline-milestone-mobile-menu"
             role="menu"
             aria-label="Select milestone"
             className="absolute bottom-full mb-3 w-[90vw] max-w-sm rounded-2xl bg-slate-900/95 dark:bg-[#0c1427]/98 backdrop-blur-xl border border-cyan-500/30 p-2 shadow-2xl shadow-cyan-950/50 max-h-72 overflow-y-auto divide-y divide-slate-800/80 dark:divide-white/10"
@@ -225,6 +226,7 @@ export function TimelineMobileNav({
             onClick={() => setIsMenuOpen((prev) => !prev)}
             aria-expanded={isMenuOpen}
             aria-haspopup="menu"
+            aria-controls="timeline-milestone-mobile-menu"
             aria-label={locale === 'en' ? 'Current milestone details. Tap to browse.' : '現在の経歴。タップで一覧表示。'}
             className="flex items-center gap-2 px-3.5 h-11 rounded-full bg-white/5 hover:bg-cyan-500/15 active:bg-cyan-500/25 border border-white/10 hover:border-cyan-500/30 active:scale-95 transition-all cursor-pointer max-w-[190px] sm:max-w-[240px]"
           >

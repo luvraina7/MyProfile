@@ -1,3 +1,6 @@
 ## 2024-05-18 - [Add aria attributes to expandable sections]
 **Learning:** Adding the disclosure pattern attributes (`aria-expanded`, `aria-controls` on the button and an `id` on the content container) makes collapsible sections like "Key Deliverables" much more accessible to screen reader users, so they understand it toggles visibility. Also `aria-hidden` is useful to hide generic visual chevrons that do not carry semantic value.
 **Action:** Always verify that interactive collapsible elements (like accordions or disclosure widgets) include `aria-expanded` and logically link to their content area with `aria-controls`.
+## 2024-05-18 - [Ensure aria-controls is present for popups and menus]
+**Learning:** Found multiple instances where a button had `aria-expanded` and `aria-haspopup="menu"`, but lacked `aria-controls` to actually point to the menu container it toggles. Adding `aria-controls` creates a definitive programmatic link between the trigger and the content it reveals, crucial for screen reader users trying to navigate the newly revealed content.
+**Action:** When using `aria-haspopup` and `aria-expanded`, ensure you also add an `id` to the popup element and reference it in the trigger button with `aria-controls`.

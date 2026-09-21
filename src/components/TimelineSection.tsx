@@ -124,6 +124,7 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
                 onClick={() => setMilestoneDropdownOpen((v) => !v)}
                 aria-expanded={milestoneDropdownOpen}
                 aria-haspopup="menu"
+                aria-controls="timeline-milestone-jump-menu"
                 className="w-full flex items-center justify-between pl-8 pr-3.5 py-2.5 rounded-xl text-xs font-semibold bg-white/10 dark:bg-slate-900/80 text-[var(--text-primary)] border border-cyan-500/30 hover:border-cyan-500/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 shadow-sm cursor-pointer transition-all text-left"
               >
                 {/* Left Indicator Icon */}
@@ -145,6 +146,7 @@ export function TimelineSection({ timeline, allTechStacks, locale }: TimelineSec
               {/* Dropdown Menu - displayed directly under the button */}
               {milestoneDropdownOpen && (
                 <div
+                  id="timeline-milestone-jump-menu"
                   role="menu"
                   className="absolute left-0 right-0 top-full mt-1.5 z-50 rounded-xl bg-[var(--bg-secondary)] dark:bg-slate-900/95 backdrop-blur-md border border-cyan-500/30 shadow-2xl shadow-black/50 overflow-hidden py-1.5 max-h-72 overflow-y-auto divide-y divide-[var(--border-subtle)]"
                   style={{ animation: 'reveal-up 0.2s cubic-bezier(0.16, 1, 0.3, 1) both' }}
