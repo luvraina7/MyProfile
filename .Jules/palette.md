@@ -1,0 +1,3 @@
+## 2024-05-18 - [Add aria attributes to expandable sections]
+**Learning:** Adding the disclosure pattern attributes (`aria-expanded`, `aria-controls` on the button and an `id` on the content container) makes collapsible sections like "Key Deliverables" much more accessible to screen reader users, so they understand it toggles visibility. Also `aria-hidden` is useful to hide generic visual chevrons that do not carry semantic value.
+**Action:** Always verify that interactive collapsible elements (like accordions or disclosure widgets) include `aria-expanded` and logically link to their content area with `aria-controls`.

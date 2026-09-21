@@ -209,14 +209,16 @@ export function TimelineItem({
             <div className="mb-8">
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
+                aria-expanded={isExpanded}
+                aria-controls={`deliverables-${index}`}
                 className="flex items-center gap-2.5 text-sm font-semibold text-[var(--text-accent)] hover:underline mb-4"
               >
                 <span>{locale === 'en' ? 'Key Deliverables & Responsibilities' : '主な担当業務・成果'}</span>
-                {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                {isExpanded ? <ChevronUp className="w-5 h-5" aria-hidden="true" /> : <ChevronDown className="w-5 h-5" aria-hidden="true" />}
               </button>
 
               {isExpanded && (
-                <ul className="space-y-4 mt-4">
+                <ul id={`deliverables-${index}`} className="space-y-4 mt-4">
                   {item.highlights.map((h, hIdx) => (
                     <li key={hIdx} className="flex items-start gap-3 text-sm text-[var(--text-secondary)] leading-relaxed sm:gap-3.5 sm:text-[15px]">
                       <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
